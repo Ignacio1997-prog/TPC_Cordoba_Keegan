@@ -27,6 +27,7 @@ namespace Negocio
                     aux.Direccion = (string)datos.reader["Direccion"];
                     aux.Email = (string)datos.reader["Email"];
                     aux.Telefono = (string)datos.reader["Telefono"];
+                    lista.Add(aux);
 
                 }
                 datos.cerrarConexion();

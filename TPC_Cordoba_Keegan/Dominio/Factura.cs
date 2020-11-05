@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Producto
+    public class Factura
     {
         public int id;
         public string Nombre { get; set; }
-        public string Descripcion { get; set; }
-        public decimal Precio{ get; set; }
-        public bool Estado { get; set; }
+        public string FechaEmision { get; set; }
 
+        public int IdEstadoFactura;
     }
 }

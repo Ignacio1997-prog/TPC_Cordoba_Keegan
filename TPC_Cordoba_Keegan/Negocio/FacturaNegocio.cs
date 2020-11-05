@@ -8,25 +8,23 @@ using System.Data.SqlClient;
 
 namespace Negocio
 {
-    public class ProductoNegocio
+    public class FacturaNegocio
     {
-        public List<Producto> listar()
+        public List<Factura> listar()
         {
-            List<Producto> lista = new List<Producto>();
+            List<Factura> lista = new List<Factura>();
             AccesoDatos datos = new AccesoDatos();
-            datos.setearQuery("Select IDProducto,Nombre,Precio,IDCategoria,IDVariedad,IDTamaño,Estado,Descripcion From Productos");
+            datos.setearQuery("Select IDFactura,Nombre,FechaEmision,IDEstadoFactura From Facturas");
             try
             {
                 datos.ejecutarReader();
                 while (datos.reader.Read())
                 {
-                    Producto aux = new Producto();
-                    aux.id = Convert.ToInt32(datos.reader["IDProducto"]);
+                    Factura aux = new Factura();
+                    aux.id = (int)datos.reader["IDFactura"];
                     aux.Nombre = (string)datos.reader["Nombre"];
-                    aux.Descripcion = (string)datos.reader["Descripcion"];
-                    aux.Precio = (decimal)datos.reader["Precio"];
-                    aux.Estado = (bool)datos.reader["Estado"];
-
+                    aux.FechaEmision = (string)datos.reader["FechaEmision"];
+                    aux.IdEstadoFactura = (int)datos.reader["IDEstadoFactura"];
                     lista.Add(aux);
 
                 }
@@ -38,6 +36,7 @@ namespace Negocio
 
                 throw ex;
             }
+
         }
     }
 }

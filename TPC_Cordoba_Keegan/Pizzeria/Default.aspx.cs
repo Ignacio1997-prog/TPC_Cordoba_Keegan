@@ -14,8 +14,8 @@ namespace Pizzeria
         public List<Producto> listaProducto { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            ProductoNegocio negocio = new ProductoNegocio();
-            listaProducto = negocio.listar();
+            ProductoNegocio aux = new ProductoNegocio();
+            listaProducto = aux.listar();
 
         }
     }
