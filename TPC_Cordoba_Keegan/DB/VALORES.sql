@@ -1,15 +1,16 @@
+USE KEEGAN_CORDOBA_DB
+GO
+
 INSERT INTO Categorias VALUES ('Pizza')
 INSERT INTO Categorias VALUES ('Empanadas')
 INSERT INTO Categorias VALUES ('Pollo')
 INSERT INTO Categorias VALUES ('Hamburguesa')
-USE KEEGAN_CORDOBA_DB
-GO
 
-INSERT INTO Tamaños VALUES ('Individual')
-INSERT INTO Tamaños VALUES ('Chico')
-INSERT INTO Tamaños VALUES ('Media')
-INSERT INTO Tamaños VALUES ('Grande')
-INSERT INTO Tamaños VALUES ('Docena')
+INSERT INTO TamaÃ±os VALUES ('Individual')
+INSERT INTO TamaÃ±os VALUES ('Chico')
+INSERT INTO TamaÃ±os VALUES ('Media')
+INSERT INTO TamaÃ±os VALUES ('Grande')
+INSERT INTO TamaÃ±os VALUES ('Docena')
 
 INSERT INTO Variedades VALUES ('Jamon y Queso')
 INSERT INTO Variedades VALUES ('Jamon y Morron')
@@ -18,11 +19,11 @@ INSERT INTO Variedades VALUES ('Roquefort')
 INSERT INTO Variedades VALUES ('Carne')
 INSERT INTO Variedades VALUES ('Muzarella')
 
-INSERT INTO CategoriasTamaños VALUES (1,2)
-INSERT INTO CategoriasTamaños VALUES (1,3)
-INSERT INTO CategoriasTamaños VALUES (1,4)
-INSERT INTO CategoriasTamaños VALUES (2,1)
-INSERT INTO CategoriasTamaños VALUES (2,5)
+INSERT INTO CategoriasTamaÃ±os VALUES (1,2)
+INSERT INTO CategoriasTamaÃ±os VALUES (1,3)
+INSERT INTO CategoriasTamaÃ±os VALUES (1,4)
+INSERT INTO CategoriasTamaÃ±os VALUES (2,1)
+INSERT INTO CategoriasTamaÃ±os VALUES (2,5)
 
 INSERT INTO CategoriasVariedades VALUES (1,2)
 INSERT INTO CategoriasVariedades VALUES (1,4)
