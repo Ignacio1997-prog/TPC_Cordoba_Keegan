@@ -1,23 +1,21 @@
-﻿using Negocio;
+﻿using Dominio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dominio;
 
 namespace Pizzeria
 {
-    public partial class _Default : Page
+    public partial class DetalleProducto : System.Web.UI.Page
     {
-        public List<Producto> listaProducto { get; set; }
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-            ProductoNegocio aux = new ProductoNegocio();
-            listaProducto = aux.listarProductos();
             
-
+                
+            
         }
     }
 }
