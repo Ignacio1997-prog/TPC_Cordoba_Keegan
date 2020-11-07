@@ -27,7 +27,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title"><%  = item.Nombre%></h5>
                                     <%--<p class="card-text"><%  = item.Descripcion%></p>--%>
-                                    <h5 class="card-title">$<%  = item.Precio%></h5>
+                                    <%--<h5 class="card-title">$<%  = item.Precio%></h5>--%>
                                     <a href="#" class="btn btn-primary">Agregar</a>
                                 </div>
                             </div>
