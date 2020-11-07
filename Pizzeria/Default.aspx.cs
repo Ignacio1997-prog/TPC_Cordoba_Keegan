@@ -15,8 +15,7 @@ namespace Pizzeria
         protected void Page_Load(object sender, EventArgs e)
         {
             ProductoNegocio aux = new ProductoNegocio();
-            listaProducto = aux.listarProductos();
-            
+            listaProducto = aux.listar();
 
         }
     }

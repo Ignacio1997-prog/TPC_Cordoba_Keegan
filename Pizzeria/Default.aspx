@@ -3,14 +3,13 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
 
+    <div class="row">
 
-    <hr />
-    <center>
-        <h5 class="p-2 bg-warning text-primary">Pizza</h5>
-    </center>
 
-    <hr />
+        <% foreach (Dominio.Producto item in listaProducto)
+            {%>
 
+<<<<<<< HEAD:Pizzeria/Default.aspx
     <center>
         <div class="row">
 
@@ -53,25 +52,22 @@
                     {%>
                 <asp:Repeater runat="server" ID="Repeater1">
                 </asp:Repeater>
+=======
+>>>>>>> parent of 39973eb... disen.2:TPC_Cordoba_Keegan/Pizzeria/Default.aspx
                 <div class="col-md-4">
                     <div class="card" style="width: 18rem;">
-
+                        
                         <img class="card-img-top" src="..." alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title"><%  = item.Nombre%></h5>
-                            <%--<p class="card-text"><%  = item.Descripcion%></p>--%>
+                            <p class="card-text"><%  = item.Descripcion%></p>
                             <h5 class="card-title">$<%  = item.Precio%></h5>
                             <a href="#" class="btn btn-primary">Agregar</a>
                         </div>
                     </div>
                 </div>
-                <% }%>
-
-                <%}%>
-            </div>
-
-    </center>
-
+        <%}%>
+    </div>
 
 
 </asp:Content>

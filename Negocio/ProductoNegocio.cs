@@ -39,36 +39,5 @@ namespace Negocio
                 throw ex;
             }
         }
-
-
-        public List<Producto> listarProductos()
-        {
-            List<Producto> lista = new List<Producto>();
-            AccesoDatos datos = new AccesoDatos();
-            datos.setearQuery("Select*From [Mostrar_Productos]");
-            try
-            {
-                datos.ejecutarReader();
-                while (datos.reader.Read())
-                {
-                    Producto aux = new Producto();
-                    //aux.id = Convert.ToInt32(datos.reader["IDProducto"]);
-                    aux.idCategoria = Convert.ToInt32(datos.reader["IDCategoria"]);
-                    aux.Nombre = (string)datos.reader["Nombre"];
-                    aux.Descripcion = (string)datos.reader["Descripcion"];
-                    //aux.Precio = (decimal)datos.reader["Precio"];
-
-                    lista.Add(aux);
-
-                }
-                datos.cerrarConexion();
-                return lista;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
     }
 }
