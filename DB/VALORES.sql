@@ -45,3 +45,17 @@ INSERT INTO Productos VALUES ('Empanadas de jamon y queso',180,2,1,5,1,'Docena d
 
 INSERT INTO Productos VALUES ('Empanadas pollo',50,2,3,1,1,'Empanada de pollo individual')
 INSERT INTO Productos VALUES ('Empanadas de jamon y queso',200,2,3,5,1,'Docena de empanadas de pollo')
+
+use KEEGAN_CORDOBA_DB
+
+Create View Mostrar_Prod_Detalle AS
+Select p.IDProducto,p.Nombre NombreP,p.Precio,Categorias.Nombre,Variedades.Nombre NombreVariedad,Tamaños.Nombre NombreTam,p.Estado,p.Descripcion From Productos p,Categorias,Variedades,Tamaños
+Where p.IDCategoria=Categorias.IDCategoria 
+and p.IDVariedad=Variedades.IDVariedad
+and Tamaños.IDTamaño=p.IDTamaño
+GO
+
+
+
+select *From Mostrar_Prod_Detalle
+select *From Mostrar_Productos
