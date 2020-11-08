@@ -7,3 +7,12 @@ C:\Users\ignac\OneDrive\Documentos\TPC_Cordoba_Keegan\TPC_Cordoba_Keegan\Negocio
 C:\Users\ignac\OneDrive\Documentos\TPC_Cordoba_Keegan\TPC_Cordoba_Keegan\Negocio\obj\Debug\Negocio.csproj.CopyComplete
 C:\Users\ignac\OneDrive\Documentos\TPC_Cordoba_Keegan\TPC_Cordoba_Keegan\Negocio\obj\Debug\Negocio.dll
 C:\Users\ignac\OneDrive\Documentos\TPC_Cordoba_Keegan\TPC_Cordoba_Keegan\Negocio\obj\Debug\Negocio.pdb
+C:\Users\Ignacio\source\repos\TPC_Cordoba_Keegan\Negocio\obj\Debug\Negocio.csprojAssemblyReference.cache
+C:\Users\Ignacio\source\repos\TPC_Cordoba_Keegan\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.cache
+C:\Users\Ignacio\source\repos\TPC_Cordoba_Keegan\Negocio\obj\Debug\Negocio.dll
+C:\Users\Ignacio\source\repos\TPC_Cordoba_Keegan\Negocio\obj\Debug\Negocio.pdb
+C:\Users\Ignacio\source\repos\TPC_Cordoba_Keegan\Negocio\bin\Debug\Negocio.dll
+C:\Users\Ignacio\source\repos\TPC_Cordoba_Keegan\Negocio\bin\Debug\Negocio.pdb
+C:\Users\Ignacio\source\repos\TPC_Cordoba_Keegan\Negocio\bin\Debug\Dominio.dll
+C:\Users\Ignacio\source\repos\TPC_Cordoba_Keegan\Negocio\bin\Debug\Dominio.pdb
+C:\Users\Ignacio\source\repos\TPC_Cordoba_Keegan\Negocio\obj\Debug\Negocio.csproj.CopyComplete

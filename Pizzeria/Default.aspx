@@ -2,72 +2,58 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-
+    <section class ="products">
     <div class="row">
-
 
         <% foreach (Dominio.Producto item in listaProducto)
             {%>
-
-<<<<<<< HEAD:Pizzeria/Default.aspx
-    <center>
         <div class="row">
-
-                <% foreach (Dominio.Producto item in listaProducto)
+                <% if (item.IDCategoria == 1)
+ 
                     {%>
-                <% if (item.idCategoria == 1)
-                    {%>
-                        <asp:Repeater runat="server" ID="list">
-                        </asp:Repeater>
                         <div class="col-md-4">
-                            <div class="card" style="width: 18rem;">
+                            <div class="card" style="width: 12rem;">
 
-                                <img class="card-img-top" src="..." alt="Card image cap">
+                                <img class="card-img-top" src="https://www.demoslavueltaaldia.com/sites/default/files/styles/recetas_listado/public/pizza-de-mozzarella-jamon-y-morron.jpg.jpg?itok=_lTpWe1d" alt="Card image cap">
                                 <div class="card-body">
-                                    <h5 class="card-title"><%  = item.Nombre%></h5>
-                                    <%--<p class="card-text"><%  = item.Descripcion%></p>--%>
-                                    <%--<h5 class="card-title">$<%  = item.Precio%></h5>--%>
-                                    <a href="#" class="btn btn-primary">Agregar</a>
+                                    <a href="#"><h5 class="card-title"><%  = item.Nombre%></h5></a>
                                 </div>
                             </div>
                         </div>
                 <% }%>
-
-                <%}%>
         
               </div>
-    </center>
-    <hr />
-    <center>
-    <h5 class="p-2 bg-warning text-primary">Empanadas</h5>
-    </center>
-    
-    <hr />
-    <center>
-
+    </div>
         <div class="row">
-                <% foreach (Dominio.Producto item in listaProducto)
+                <% if (item.IDCategoria == 2)
                     {%>
-                <% if (item.idCategoria == 2)
-                    {%>
-                <asp:Repeater runat="server" ID="Repeater1">
-                </asp:Repeater>
-=======
->>>>>>> parent of 39973eb... disen.2:TPC_Cordoba_Keegan/Pizzeria/Default.aspx
                 <div class="col-md-4">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 12rem;">
                         
-                        <img class="card-img-top" src="..." alt="Card image cap">
+                        <img class="card-img-top" src="https://t2.rg.ltmcdn.com/es/images/6/9/4/img_empanadas_de_jamon_queso_y_huevo_7496_600.jpg" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title"><%  = item.Nombre%></h5>
-                            <p class="card-text"><%  = item.Descripcion%></p>
-                            <h5 class="card-title">$<%  = item.Precio%></h5>
-                            <a href="#" class="btn btn-primary">Agregar</a>
+                            <a href="#"><h5 class="card-title"><%  = item.Nombre%></h5></a>
                         </div>
                     </div>
                 </div>
-        <%}%>
+                 <% }%>
+            <% }%>
     </div>
+    </section>
+    <section>
+        <div class="sidebar">
+                <div class="order-contents">
+                    <h2>Tu Pedido</h2>
+                </div>
+                    <div class="empty-cart">Choose a pizza<br>to get started</div>
+                <div class="order-total">
+                    <span class="total-price">0.00</span>
+                    <a href="checkout" class="btn btn-warning")">
+                        Orden >
+                    </a>
+    </div>
+</div>
 
+    </section>
 
 </asp:Content>

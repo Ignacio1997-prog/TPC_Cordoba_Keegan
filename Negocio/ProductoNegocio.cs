@@ -14,17 +14,16 @@ namespace Negocio
         {
             List<Producto> lista = new List<Producto>();
             AccesoDatos datos = new AccesoDatos();
-            datos.setearQuery("Select IDProducto,Nombre,Precio,IDCategoria,IDVariedad,IDTamaño,Estado,Descripcion From Productos");
+            datos.setearQuery("SELECT * FROM Mostrar_Productos");
             try
             {
                 datos.ejecutarReader();
                 while (datos.reader.Read())
                 {
                     Producto aux = new Producto();
-                    aux.id = Convert.ToInt32(datos.reader["IDProducto"]);
                     aux.Nombre = (string)datos.reader["Nombre"];
-                    aux.Descripcion = (string)datos.reader["Descripcion"];
-                    aux.Precio = (decimal)datos.reader["Precio"];
+                    aux.IDCategoria = Convert.ToInt32(datos.reader["IDCategoria"]);
+                    aux.IDVariedad = Convert.ToInt32(datos.reader["IDVariedad"]);
                     aux.Estado = (bool)datos.reader["Estado"];
 
                     lista.Add(aux);

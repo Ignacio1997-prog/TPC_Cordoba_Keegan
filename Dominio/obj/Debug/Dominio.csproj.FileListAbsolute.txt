@@ -1,6 +1,5 @@
-C:\Users\ignac\OneDrive\Documentos\TPC_Cordoba_Keegan\TPC_Cordoba_Keegan\Dominio\bin\Debug\Dominio.dll
-C:\Users\ignac\OneDrive\Documentos\TPC_Cordoba_Keegan\TPC_Cordoba_Keegan\Dominio\bin\Debug\Dominio.pdb
-C:\Users\ignac\OneDrive\Documentos\TPC_Cordoba_Keegan\TPC_Cordoba_Keegan\Dominio\obj\Debug\Dominio.csprojAssemblyReference.cache
-C:\Users\ignac\OneDrive\Documentos\TPC_Cordoba_Keegan\TPC_Cordoba_Keegan\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
-C:\Users\ignac\OneDrive\Documentos\TPC_Cordoba_Keegan\TPC_Cordoba_Keegan\Dominio\obj\Debug\Dominio.dll
-C:\Users\ignac\OneDrive\Documentos\TPC_Cordoba_Keegan\TPC_Cordoba_Keegan\Dominio\obj\Debug\Dominio.pdb
+C:\Users\Ignacio\source\repos\TPC_Cordoba_Keegan\Dominio\bin\Debug\Dominio.dll
+C:\Users\Ignacio\source\repos\TPC_Cordoba_Keegan\Dominio\bin\Debug\Dominio.pdb
+C:\Users\Ignacio\source\repos\TPC_Cordoba_Keegan\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
+C:\Users\Ignacio\source\repos\TPC_Cordoba_Keegan\Dominio\obj\Debug\Dominio.dll
+C:\Users\Ignacio\source\repos\TPC_Cordoba_Keegan\Dominio\obj\Debug\Dominio.pdb
