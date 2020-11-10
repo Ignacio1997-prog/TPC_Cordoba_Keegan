@@ -95,6 +95,43 @@ CREATE TABLE CategoriasVariedades(
 )
 GO
 
+CREATE FUNCTION dbo.VariedadCorrecta(@variedad TINYINT,@categoria TINYINT)
+
+    RETURNS bit
+    AS
+    BEGIN
+     DECLARE @return bit;
+
+     IF(@variedad) IN ( SELECT V.IDVariedad FROM Variedades V 
+	 JOIN CategoriasVariedades CV ON CV.IDVariedad = V.IDVariedad 
+	 WHERE CV.IDCategoria = @categoria)
+     SET @return = 'true';
+     ELSE
+     SET @return = 'false';
+
+     RETURN @return;
+
+    END;
+GO
+CREATE FUNCTION dbo.TamañoCorrecto(@tamaño TINYINT,@categoria TINYINT)
+
+    RETURNS bit
+    AS
+    BEGIN
+     DECLARE @return bit;
+
+     IF(@tamaño) IN ( SELECT T.IDTamaño FROM Tamaños T
+	 JOIN CategoriasTamaños CT ON CT.IDTamaño = T.IDTamaño 
+	 WHERE CT.IDCategoria = @categoria)
+     SET @return = 'true';
+     ELSE
+     SET @return = 'false';
+
+     RETURN @return;
+
+    END;
+GO
+
 ALTER TABLE KEEGAN_CORDOBA_DB..DetallePedidos ADD CONSTRAINT DP_Cant_SoloPositivos CHECK(Cantidad>0);
 GO
 ALTER TABLE KEEGAN_CORDOBA_DB..DetallePedidos ADD CONSTRAINT DP_SBT_SoloPositivos CHECK(Subtotal>=0);
@@ -107,9 +144,10 @@ ALTER TABLE KEEGAN_CORDOBA_DB..Clientes ADD CONSTRAINT P_FechaAlta CHECK (CAST(F
 GO
 ALTER TABLE KEEGAN_CORDOBA_DB..Productos ADD CONSTRAINT P_SoloPositivos CHECK(Precio>=0);
 GO
+ALTER TABLE KEEGAN_CORDOBA_DB..Productos ADD CONSTRAINT P_VariedadCorrecta CHECK(dbo.VariedadCorrecta(IDVariedad,IDCategoria) = 'true');
+GO
+ALTER TABLE KEEGAN_CORDOBA_DB..Productos ADD CONSTRAINT P_TamañoCorrecto CHECK(dbo.TamañoCorrecto(IDTamaño,IDCategoria) = 'true');
+GO
 ALTER TABLE KEEGAN_CORDOBA_DB..Pedidos ADD CONSTRAINT P_Fecha CHECK (CAST(FechaCreacion AS DATE) <= CAST(GETDATE() AS DATE) );
 GO
 ALTER TABLE KEEGAN_CORDOBA_DB..Facturas ADD CONSTRAINT P_FechaFactura CHECK (CAST(FechaEmision AS DATE) <= CAST(GETDATE() AS DATE) );
-
-
-select*From Mostrar_Prod_Detalle
