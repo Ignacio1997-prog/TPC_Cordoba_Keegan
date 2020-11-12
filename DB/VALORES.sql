@@ -6,11 +6,11 @@ INSERT INTO Categorias VALUES ('Empanadas')
 INSERT INTO Categorias VALUES ('Pollo')
 INSERT INTO Categorias VALUES ('Hamburguesa')
 
-INSERT INTO Tamaños VALUES ('Individual')
-INSERT INTO Tamaños VALUES ('Chico')
-INSERT INTO Tamaños VALUES ('Media')
-INSERT INTO Tamaños VALUES ('Grande')
-INSERT INTO Tamaños VALUES ('Docena')
+INSERT INTO Tama�os VALUES ('Individual')
+INSERT INTO Tama�os VALUES ('Chico')
+INSERT INTO Tama�os VALUES ('Media')
+INSERT INTO Tama�os VALUES ('Grande')
+INSERT INTO Tama�os VALUES ('Docena')
 
 INSERT INTO Variedades VALUES ('Jamon y Queso')
 INSERT INTO Variedades VALUES ('Jamon y Morron')
@@ -19,11 +19,11 @@ INSERT INTO Variedades VALUES ('Roquefort')
 INSERT INTO Variedades VALUES ('Carne')
 INSERT INTO Variedades VALUES ('Muzarella')
 
-INSERT INTO CategoriasTamaños VALUES (1,2)
-INSERT INTO CategoriasTamaños VALUES (1,3)
-INSERT INTO CategoriasTamaños VALUES (1,4)
-INSERT INTO CategoriasTamaños VALUES (2,1)
-INSERT INTO CategoriasTamaños VALUES (2,5)
+INSERT INTO CategoriasTama�os VALUES (1,2)
+INSERT INTO CategoriasTama�os VALUES (1,3)
+INSERT INTO CategoriasTama�os VALUES (1,4)
+INSERT INTO CategoriasTama�os VALUES (2,1)
+INSERT INTO CategoriasTama�os VALUES (2,5)
 
 INSERT INTO CategoriasVariedades VALUES (1,2)
 INSERT INTO CategoriasVariedades VALUES (1,4)
@@ -45,17 +45,3 @@ INSERT INTO Productos VALUES ('Empanadas de jamon y queso',180,2,1,5,1,'Docena d
 
 INSERT INTO Productos VALUES ('Empanadas pollo',50,2,3,1,1,'Empanada de pollo individual')
 INSERT INTO Productos VALUES ('Empanadas de jamon y queso',200,2,3,5,1,'Docena de empanadas de pollo')
-
-use KEEGAN_CORDOBA_DB
-
-Create View Mostrar_Prod_Detalle AS
-Select p.IDProducto,p.Nombre NombreP,p.Precio,Categorias.Nombre,Variedades.Nombre NombreVariedad,Tamaños.Nombre NombreTam,p.Estado,p.Descripcion From Productos p,Categorias,Variedades,Tamaños
-Where p.IDCategoria=Categorias.IDCategoria 
-and p.IDVariedad=Variedades.IDVariedad
-and Tamaños.IDTamaño=p.IDTamaño
-GO
-
-
-
-select *From Mostrar_Prod_Detalle
-select *From Mostrar_Productos

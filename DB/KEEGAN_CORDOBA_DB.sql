@@ -12,12 +12,29 @@ CREATE TABLE Clientes(
     IDCliente BIGINT not null PRIMARY KEY IDENTITY (1, 1),
     Nombre VARCHAR(50) not null,
 	Apellido VARCHAR(50) not null,
-	FechaAlta DATE not null,
-	Direccion VARCHAR(50) not null,
+	Calle VARCHAR(50) not null,
+	Numero int not null,
+	EntreCalle1 VARCHAR(50) not null,
+	EntreCalle2 VARCHAR(50) not null,
+	Piso TINYINT not null,
+	Departamento VARCHAR(3) not null,
 	IDLocalidad TINYINT null FOREIGN KEY REFERENCES Localidades(IDLocalidad),
-	Email VARCHAR(50) not null,
-	Telefono VARCHAR(50) not null
+	Telefono VARCHAR(20) not null
 
+)
+GO
+CREATE TABLE RolUsuario(
+    IDRol TINYINT not null PRIMARY KEY IDENTITY (1, 1),
+    Nombre VARCHAR(50) not null,
+)
+GO
+CREATE TABLE Usuarios(
+    IDUsuario BIGINT not null FOREIGN KEY REFERENCES Clientes(IDCliente),
+	NombreUsuario VARCHAR(50) not null,
+	Clave VARCHAR(20) not null,
+    FechaAlta DATE not null,
+	Email VARCHAR(50) not null,
+	IDRol TINYINT FOREIGN KEY REFERENCES RolUsuario(IDRol)
 )
 GO
 CREATE TABLE EstadoPedidos(
@@ -39,6 +56,11 @@ CREATE TABLE Facturas(
 	IDEstadoFactura TINYINT null FOREIGN KEY REFERENCES EstadoFacturas(IDEstadoFactura)
 )
 GO
+CREATE TABLE Categorias(
+    IDCategoria TINYINT not null PRIMARY KEY IDENTITY (1, 1),
+	Nombre VARCHAR(50) not null,
+)
+
 CREATE TABLE Tamaños(
 	IDTamaño TINYINT not null PRIMARY KEY IDENTITY (1, 1),
     Nombre varchar(50) not null
@@ -48,11 +70,7 @@ CREATE TABLE Variedades(
 	IDVariedad TINYINT not null PRIMARY KEY IDENTITY (1, 1),
     Nombre VARCHAR(50) not null,
 )
-GO
-CREATE TABLE Categorias(
-    IDCategoria TINYINT not null PRIMARY KEY IDENTITY (1, 1),
-	Nombre VARCHAR(50) not null,
-)
+
 GO
 CREATE TABLE Productos(
     IDProducto SMALLINT not null PRIMARY KEY IDENTITY (1, 1),
@@ -80,6 +98,18 @@ CREATE TABLE DetallePedidos(
 	IDProducto SMALLINT not null FOREIGN KEY REFERENCES Productos(IDProducto),
 	IDPedido BIGINT not null FOREIGN KEY REFERENCES Pedidos(IDPedido),
 )
+CREATE TABLE Envios(
+    IDPedido BIGINT not null FOREIGN KEY REFERENCES Pedidos(IDPedido),
+    Calle VARCHAR(50) not null,
+	Numero int not null,
+	EntreCalle1 VARCHAR(50) not null,
+	EntreCalle2 VARCHAR(50) not null,
+	Piso TINYINT not null,
+	Departamento VARCHAR(3) not null,
+	IDLocalidad TINYINT null FOREIGN KEY REFERENCES Localidades(IDLocalidad),
+	Telefono VARCHAR(20) not null,
+	Observaciones VARCHAR(100) not null
+)
 GO
 CREATE TABLE CategoriasTamaños(
 	IDCategoria TINYINT not null FOREIGN KEY REFERENCES Categorias(IDCategoria),
@@ -102,8 +132,7 @@ CREATE FUNCTION dbo.VariedadCorrecta(@variedad TINYINT,@categoria TINYINT)
     BEGIN
      DECLARE @return bit;
 
-     IF(@variedad) IN ( SELECT V.IDVariedad FROM Variedades V 
-	 JOIN CategoriasVariedades CV ON CV.IDVariedad = V.IDVariedad 
+     IF(@variedad) IN ( SELECT CV.IDVariedad FROM CategoriasVariedades CV
 	 WHERE CV.IDCategoria = @categoria)
      SET @return = 'true';
      ELSE
@@ -120,8 +149,7 @@ CREATE FUNCTION dbo.TamañoCorrecto(@tamaño TINYINT,@categoria TINYINT)
     BEGIN
      DECLARE @return bit;
 
-     IF(@tamaño) IN ( SELECT T.IDTamaño FROM Tamaños T
-	 JOIN CategoriasTamaños CT ON CT.IDTamaño = T.IDTamaño 
+     IF(@tamaño) IN ( SELECT CT.IDTamaño FROM CategoriasTamaños CT
 	 WHERE CT.IDCategoria = @categoria)
      SET @return = 'true';
      ELSE
@@ -136,11 +164,13 @@ ALTER TABLE KEEGAN_CORDOBA_DB..DetallePedidos ADD CONSTRAINT DP_Cant_SoloPositiv
 GO
 ALTER TABLE KEEGAN_CORDOBA_DB..DetallePedidos ADD CONSTRAINT DP_SBT_SoloPositivos CHECK(Subtotal>=0);
 GO
-ALTER TABLE KEEGAN_CORDOBA_DB..Clientes ADD CONSTRAINT cc_ValidarTel CHECK(Telefono like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]');
+ALTER TABLE KEEGAN_CORDOBA_DB..Clientes ADD CONSTRAINT cc_ValidarTelCliente CHECK(Telefono like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]');
 GO
-ALTER TABLE KEEGAN_CORDOBA_DB..Clientes ADD CONSTRAINT chk_email CHECK (Email like '%_@__%.__%');
+ALTER TABLE KEEGAN_CORDOBA_DB..Envios ADD CONSTRAINT cc_ValidarTelEnvio CHECK(Telefono like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]');
 GO
-ALTER TABLE KEEGAN_CORDOBA_DB..Clientes ADD CONSTRAINT P_FechaAlta CHECK (CAST(FechaAlta AS DATE) <= CAST(GETDATE() AS DATE) );
+ALTER TABLE KEEGAN_CORDOBA_DB..Usuarios ADD CONSTRAINT chk_email CHECK (Email like '%_@__%.__%');
+GO
+ALTER TABLE KEEGAN_CORDOBA_DB..Usuarios ADD CONSTRAINT P_FechaAlta CHECK (CAST(FechaAlta AS DATE) <= CAST(GETDATE() AS DATE) );
 GO
 ALTER TABLE KEEGAN_CORDOBA_DB..Productos ADD CONSTRAINT P_SoloPositivos CHECK(Precio>=0);
 GO
