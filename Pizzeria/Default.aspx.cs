@@ -18,5 +18,7 @@ namespace Pizzeria
             listaProducto = aux.listar();
 
         }
+
+       
     }
 }
