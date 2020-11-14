@@ -5,55 +5,61 @@
 
     <div class="container">
         <div class="row">
-            <section style="margin-top: 80px">
-                <% foreach (Dominio.Producto item in listaProducto)
-                    {%>
-                <% if (item.IDCategoria == 1)
-                    {%>
-                <div class="col-md-6">
-                    <div class="main">
-                        <ul class="pizza-cards">
-                            <li style="background-image: url('https://www.demoslavueltaaldia.com/sites/default/files/styles/recetas_listado/public/pizza-de-mozzarella-jamon-y-morron.jpg.jpg?itok=_lTpWe1d')">
-                                <div class="pizza-info">
-                                    <span class="title"><%  = item.Nombre%></span>
-                                    <span class="price"><%  = item.Precio%></span>
-                                    <a href="Detalle.aspx?id=<%  = item.id.ToString()%>" class="btn btn-primary">Agregar</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <% }%>
-                <% if (item.IDCategoria == 2)
-                    {%>
-                <div class="col-md-6">
-                    <div class="main">
-                        <ul class="pizza-cards">
-                            <li style="background-image: url('https://t2.rg.ltmcdn.com/es/images/6/9/4/img_empanadas_de_jamon_queso_y_huevo_7496_600.jpg')">
-                                <div class="pizza-info">
-                                    <span class="title"><%  = item.Nombre%></span>
-                                    <span class="price"><%  = item.Precio%></span>
-                                    <a href="Detalle.aspx?id=<%  = item.id.ToString()%>" class="btn btn-primary">Agregar</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <% }%>
-                <% }%>
-            </section>
-            <div class="col-md-6 col-sm-6 pull-right">
-                <div class="sidebar">
-                    <div class="order-contents">
-                        <h2>Tu Pedido</h2>
-                    </div>
-                    <div class="empty-cart">Selecciona un producto</div>
-                    <div class="order-total">
-                        <span class="total-price">0.00</span>
-                        <a href="checkout" class="btn btn-warning" style="margin-left: 8em">Orden</a>
-                    </div>
-                </div>
+            <div class="col-8 col-md-8 col-sm-6">
+                <section style="margin-top: 80px">
+                            <asp:Repeater runat="server" ID="pizzas">
+                                <ItemTemplate>
+                                    <div class="col-md-3">
+                                        <div class="main">
+                                            <ul class="pizza-cards">
+                                                <li style="background-image: url('https://www.demoslavueltaaldia.com/sites/default/files/styles/recetas_listado/public/pizza-de-mozzarella-jamon-y-morron.jpg.jpg?itok=_lTpWe1d')">
+                                                        <div class="pizza-info">
+                                                            <span class="title"><%# Eval("Nombre")%></span>
+                                                            <asp:LinkButton CssClass="btn btn-primary" ID = "LinkButton1" runat="server" Text='Detalle' OnClick ="btnDetalle_Click" CommandArgument=<%# Eval("IDCategoria").ToString() + "," + Eval("IDVariedad").ToString() %>></asp:LinkButton>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div> 
+                                    </div> 
+                                </ItemTemplate>
+                            </asp:Repeater>
+                            <asp:Repeater runat="server" ID="empanadas">
+                                <ItemTemplate>
+                                    <div class="col-md-3">
+                                         <div class="main">
+                                            <ul class="pizza-cards">
+                                                <li style="background-image: url('https://t2.rg.ltmcdn.com/es/images/6/9/4/img_empanadas_de_jamon_queso_y_huevo_7496_600.jpg')">
+                                                        <div class="pizza-info">
+                                                            <span class="title"><%# Eval("Nombre")%></span>
+                                                            <asp:LinkButton CssClass="btn btn-primary" ID = "LinkButton1" runat="server" Text='Detalle' OnClick ="btnDetalle_Click" CommandArgument=<%# Eval("IDCategoria").ToString() + ","  +  Eval("IDVariedad").ToString() %>></asp:LinkButton>
+                                                        </div>
+                                                </li>
+                                            </ul>
+                                        </div> 
+                                    </div> 
+                                </ItemTemplate>
+                            </asp:Repeater>
+                  </section>
+             </div>
+           <div class="col-4 col-md-4 col-sm-6 sidebar">
+                <div class="order-contents">
+                      <h2>Tu Pedido</h2>
+                    <asp:Repeater runat="server" ID="cart">
+                        <ItemTemplate>
+                            <div class="cart-item">
+                              <%# Eval("Cantidad")%> - <%# Eval("Nombre")%> - $<%# Eval("Precio")%>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                 </div>
+                 <div class="empty-cart">Selecciona un producto</div>
+
+                  <div class="order-total">
+                       <span class="total-price"><%= total %></span>
+                      <a href="CarritoCompras.aspx" class="btn btn-warning" style="margin-left: 8em">Orden</a>
+                 </div>
             </div>
-        </div>
-    </div>
+    </div> 
+</div> 
 </asp:Content>
