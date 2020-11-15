@@ -45,3 +45,4 @@ INSERT INTO Productos VALUES ('Empanadas de jamon y queso',180,2,1,5,1,'Docena d
 
 INSERT INTO Productos VALUES ('Empanadas pollo',50,2,3,1,1,'Empanada de pollo individual')
 INSERT INTO Productos VALUES ('Empanadas de jamon y queso',200,2,3,5,1,'Docena de empanadas de pollo')
+

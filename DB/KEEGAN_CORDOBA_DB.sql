@@ -7,6 +7,10 @@ CREATE TABLE Localidades(
     Nombre VARCHAR(50) not null,
 	CodigoPostal SMALLINT not null
 )
+
+insert into Localidades(Nombre,CodigoPostal)
+VALUES('Tigre',1648)
+
 GO
 CREATE TABLE Clientes(
     IDCliente BIGINT not null PRIMARY KEY IDENTITY (1, 1),
@@ -181,3 +185,86 @@ GO
 ALTER TABLE KEEGAN_CORDOBA_DB..Pedidos ADD CONSTRAINT P_Fecha CHECK (CAST(FechaCreacion AS DATE) <= CAST(GETDATE() AS DATE) );
 GO
 ALTER TABLE KEEGAN_CORDOBA_DB..Facturas ADD CONSTRAINT P_FechaFactura CHECK (CAST(FechaEmision AS DATE) <= CAST(GETDATE() AS DATE) );
+
+
+Create Procedure SP_AgregarCliete(
+	@Nombre varchar(50),
+	@Apellido varchar(50),
+	@Calle varchar(50),
+	@numero int,
+	@EntreCalle1 varchar(50),
+	@EntreCalle2 varchar(50),
+	@Piso TINYINT,
+	@Departamento varchar(3),
+	@IDLocalidad Tinyint,
+	@Telefono varchar(20)
+)
+AS
+Begin
+	Begin Try
+		Insert into Clientes(Nombre,Apellido,Calle,Numero,EntreCalle1,EntreCalle2,Piso,Departamento,IDLocalidad,Telefono)
+			VALUES(@Nombre,@Apellido,@Calle,@numero,@EntreCalle1,@EntreCalle2,@Piso,@Departamento,@IDLocalidad,@Telefono
+		)
+	End Try
+	Begin Catch
+		RAISERROR('Error al registrar Cliente', 16,1)
+	End Catch
+End
+
+
+exec SP_AgregarCliete 'Ignacio','Cordoba','Mascardi',123,'Colombia','Florida',0,0,1,'1132484848'
+
+Select*From Clientes
+
+------------------------------
+insert into Facturas(Nombre,FechaEmision)
+VALUES('Hola',GETDATE());
+Select*From Facturas
+
+insert into EstadoPedidos(Nombre,Descripcion)
+VALUES('Confirmado','Su pedido fue confirmado');
+------------------------------------
+
+Create Procedure SP_AgregarPedidos(
+	@FechaCreacion Date,
+	@IDCliente Bigint,
+	@IDEstadoPedido Tinyint,
+	@IDFactura Bigint
+)
+AS
+Begin
+	Begin Try
+		Insert into Pedidos(FechaCreacion,IDCliente,IDEstadoPedido,IDFactura)
+			VALUES(@FechaCreacion,@IDCliente,@IDEstadoPedido,@IDFactura
+		)
+	End Try
+	Begin Catch
+		RAISERROR('Error al registrar Cliente', 16,1)
+	End Catch
+End
+
+exec SP_AgregarPedidos '2020-11-15',6,1,1
+
+Select*From Pedidos
+
+-------------------------------------------------
+
+Create Procedure SP_AgregarDetallePedido(
+	@Cantidad Tinyint,
+	@Subtotal Money,
+	@IDProducto Smallint,
+	@IDPedido Bigint
+)
+AS
+Begin
+	Begin Try
+		Insert into DetallePedidos(Cantidad,Subtotal,IDProducto,IDPedido)
+			VALUES(@Cantidad,@Subtotal,@IDProducto,@IDPedido
+		)
+	End Try
+	Begin Catch
+		RAISERROR('Error al registrar Cliente', 16,1)
+	End Catch
+End
+
+exec SP_AgregarDetallePedido 3,180.0,1,1

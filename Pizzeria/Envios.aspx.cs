@@ -18,7 +18,7 @@ namespace Pizzeria
         }
         public void btnAceptar_Click(object sender, EventArgs e)
         {
-            
+            Response.Redirect(ResolveUrl("MetodoDePago.aspx"));
         }
     }
 }

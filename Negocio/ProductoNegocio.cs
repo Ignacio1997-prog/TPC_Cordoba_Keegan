@@ -54,8 +54,8 @@ namespace Negocio
                     Producto aux = new Producto();
                     aux.IDProducto = Convert.ToInt32(datos.reader["IDProducto"]);
                     aux.Nombre = (string)datos.reader["Nombre"];
-                    aux.Descripcion = (string)datos.reader["Descripcion"];
-                    aux.NombreTamanio = (string)datos.reader["NombreTamaño"];
+                    //aux.Descripcion = (string)datos.reader["Descripcion"];
+                    //aux.NombreTamanio = (string)datos.reader["NombreTamaño"];
                     aux.IDTamanio = Convert.ToInt32(datos.reader["IDTamaño"]);
                     aux.Precio = Convert.ToInt32(datos.reader["Precio"]);
 
