@@ -46,3 +46,21 @@ INSERT INTO Productos VALUES ('Empanadas de jamon y queso',180,2,1,5,1,'Docena d
 INSERT INTO Productos VALUES ('Empanadas pollo',50,2,3,1,1,'Empanada de pollo individual')
 INSERT INTO Productos VALUES ('Empanadas de jamon y queso',200,2,3,5,1,'Docena de empanadas de pollo')
 
+
+INSERT INTO Localidades(Nombre,CodigoPostal)
+VALUES('Vicente Lopez',1636),
+('Olivos',1636), 
+('Florida',1602), 
+('Villa Martelli',1603);
+
+
+--------------------------
+INSERT INTO Facturas(Nombre,FechaEmision)
+VALUES('A121BZ1',GETDATE()),
+('A121BZ2',GETDATE()),
+('A121BZ3',GETDATE());
+
+INSERT INTO EstadoPedidos(Nombre,Descripcion)
+VALUES('Confirmado','Su pedido fue confirmado'),
+('Cancelado','Su pedido fue cancelado'),
+('Demorado','Su pedido fue confirmado');
