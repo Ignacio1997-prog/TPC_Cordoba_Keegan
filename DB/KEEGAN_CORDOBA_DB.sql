@@ -35,7 +35,8 @@ CREATE TABLE Usuarios(
 	Clave VARCHAR(20) not null,
     FechaAlta DATE not null,
 	Email VARCHAR(50) not null,
-	IDRol TINYINT FOREIGN KEY REFERENCES RolUsuario(IDRol)
+	IDRol TINYINT FOREIGN KEY REFERENCES RolUsuario(IDRol),
+	PRIMARY KEY (IDUsuario)
 )
 GO
 CREATE TABLE EstadoPedidos(

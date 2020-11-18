@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Net.Configuration;
+using System.Web.Configuration;
 
 namespace Negocio
 {
@@ -16,7 +17,7 @@ namespace Negocio
 
         public AccesoDatos()
         {
-            conexion = new SqlConnection("data source =.\\SQLEXPRESS;initial catalog= KEEGAN_CORDOBA_DB; Integrated security= sspi");
+            conexion = new SqlConnection(WebConfigurationManager.ConnectionStrings["Connection"].ConnectionString);
             comando = new SqlCommand();
             comando.Connection = conexion;
 

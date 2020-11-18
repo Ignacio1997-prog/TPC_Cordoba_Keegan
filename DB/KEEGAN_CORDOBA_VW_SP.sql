@@ -8,7 +8,7 @@ FROM Productos P
 WHERE Estado = 1) ctd WHERE fila = 1
 GO
 
-CREATE FUNCTION Detalle_Producto
+ALTER FUNCTION Detalle_Producto
 (
 @categoria TINYINT,
 @variedad TINYINT
@@ -17,7 +17,8 @@ RETURNS TABLE
 AS
 RETURN
 (
-SELECT P.IDProducto,P.Nombre,P.Descripcion,P.IDTamaño,P.Precio FROM Productos P
+SELECT P.IDProducto,P.Nombre,P.Descripcion,P.IDTamaño,T.Nombre NombreTamaño,P.Precio FROM Productos P
+JOIN Tamaños T ON T.IDTamaño = P.IDTamaño
 WHERE IDCategoria = @categoria AND IDVariedad = @variedad
 )
 GO

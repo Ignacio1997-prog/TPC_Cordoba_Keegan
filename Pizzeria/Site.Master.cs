@@ -11,7 +11,18 @@ namespace Pizzeria
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["Admin"] == null)
+            {
+                Session["Admin"] = false;
+            }
+        }
+        public void btnLogin_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(ResolveUrl("Login.aspx"));
+        }
+        public void btnRegistrarse_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(ResolveUrl("Registrarse.aspx"));
         }
     }
 }

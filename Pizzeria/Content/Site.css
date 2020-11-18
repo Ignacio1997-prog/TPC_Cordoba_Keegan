@@ -69,7 +69,8 @@ textarea {
     justify-content: center;
 }
 
-button.sign-in {
+a.sign-in {
+    text-decoration: none;
     background: none;
     border: 1.5px solid white;
     border-radius: 0.7em;
