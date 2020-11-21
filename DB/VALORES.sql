@@ -64,3 +64,13 @@ INSERT INTO EstadoPedidos(Nombre,Descripcion)
 VALUES('Confirmado','Su pedido fue confirmado'),
 ('Cancelado','Su pedido fue cancelado'),
 ('Demorado','Su pedido fue confirmado');
+
+
+INSERT INTO RolUsuario VALUES('Cliente'),('Admin')
+
+INSERT INTO Clientes VALUES ('Ignacio','Keegan','test',1,null,null,null,null,1,'1126739473')
+
+INSERT INTO Clientes VALUES ('admin','Keegan','test',1,null,null,null,null,1,'1126739473')
+
+INSERT INTO Usuarios VALUES (1,'igna','1',GETDATE(),'ignaciokeegan@gmail.com',1),
+							(2,'admin','1234',GETDATE(),'ignaciokeegan@gmail.com',2)
