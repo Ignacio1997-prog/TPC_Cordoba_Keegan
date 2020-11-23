@@ -23,6 +23,8 @@ namespace Dominio
 
         public int idFactura;
 
+        public int IDMetodoPago;
+
         public void AgregarItem(DetallePedido item)
         {
             if (Items.Any(i => item.IDProducto == i.IDProducto))

@@ -28,8 +28,13 @@ namespace Pizzeria
             {
                 Login1.Visible = false;
                 Session.Add("Autenticado", true);
+                Session.Add("ID", user.ID);
                 Session.Add("Usuario", user.Nombre);
-                if (user.Rol == 2)
+                if (user.Rol == 1)
+                {
+                    Session.Add("Admin", false);
+                }
+                else if (user.Rol == 2)
                 {
                     Session.Add("Admin", true);
                 }

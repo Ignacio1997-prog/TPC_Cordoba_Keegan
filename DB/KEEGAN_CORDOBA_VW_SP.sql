@@ -8,7 +8,23 @@ FROM Productos P
 WHERE Estado = 1) ctd WHERE fila = 1
 GO
 
-ALTER FUNCTION Detalle_Producto
+CREATE VIEW Mostrar_Localidades AS 
+SELECT IDLocalidad,Nombre FROM Localidades
+GO
+
+SELECT * FROM Get_ID
+
+CREATE VIEW Get_ID AS 
+SELECT TOP 1 IDCliente FROM Clientes ORDER BY IDCliente DESC
+GO
+
+CREATE VIEW Get_IDPedido AS 
+SELECT TOP 1 IDPedido FROM Pedidos ORDER BY IDPedido DESC
+GO
+
+SELECT * FROM Get_IDPedido
+
+CREATE FUNCTION Detalle_Producto
 (
 @categoria TINYINT,
 @variedad TINYINT
@@ -49,21 +65,43 @@ End
 ------------------------------
 exec SP_AgregarCliente 'Ignacio','Cordoba','Mascardi',123,'Colombia','Florida',0,0,1,'1132484848'
 ------------------------------
-SELECT * FROM Clientes
 
 GO
 
-Create Procedure SP_AgregarPedidos(
-	@FechaCreacion Date,
+ALTER Procedure SP_AgregarUsuario(
+	@IDCliente bigint,
+	@NombreUsuario varchar(50),
+	@Clave varchar(50),
+	@Email varchar(50),
+	@FechaAlta date = null,
+	@IDRol tinyint = 1
+)
+AS
+Begin
+	Begin Try
+		Insert into Usuarios VALUES(@IDCliente,@NombreUsuario,@Clave,GETDATE(),@Email,@IDRol)
+	End Try
+	Begin Catch
+		RAISERROR('Error al registrar Usuario', 16,1)
+	End Catch
+End
+
+------------------------------
+exec SP_AgregarUsuario 3,'Cordoba','1','test@gmail.com',1
+------------------------------
+
+
+GO
+
+ALTER Procedure SP_AgregarPedidos(
 	@IDCliente Bigint,
-	@IDEstadoPedido Tinyint,
 	@IDFactura Bigint
 )
 AS
 Begin
 	Begin Try
-		Insert into Pedidos(FechaCreacion,IDCliente,IDEstadoPedido,IDFactura)
-			VALUES(@FechaCreacion,@IDCliente,@IDEstadoPedido,@IDFactura)
+		Insert into Pedidos
+			VALUES(GETDATE(),@IDCliente,1,@IDFactura)
 	End Try
 	Begin Catch
 		RAISERROR('Error al registrar el Pedido', 16,1)
@@ -71,10 +109,8 @@ Begin
 End
 
 ------------------------------
-exec SP_AgregarPedidos '2020-11-15',1,1,1
+exec SP_AgregarPedidos 1,1
 ------------------------------
-
-
 GO
 
 Create Procedure SP_AgregarDetallePedido(
@@ -101,4 +137,3 @@ exec SP_AgregarDetallePedido 2,180.0,1,1
 exec SP_AgregarDetallePedido 4,360.0,2,1
 exec SP_AgregarDetallePedido 3,330.0,6,1
 ------------------------------
-

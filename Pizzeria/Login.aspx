@@ -4,7 +4,7 @@
        <div style="text-align:center" class="dialog-container">
             <div style="width:400px" class="dialog">
                 <asp:Login ID="Login1" runat="server" Height="373px" Width="346px" MembershipProvider="AspNetSqlMembershipProvider"
-                    CreateUserText="Registrarse" CreateUserUrl="~/Register.aspx" OnAuthenticate="Login1_Authenticate"
+                    CreateUserText="Registrarse" CreateUserUrl="~/Registrarse.aspx" OnAuthenticate="Login1_Authenticate"
                     InstructionText="Ingrese su usuario y clave para ingresar." 
                     PasswordRecoveryUrl="Recuperar.aspx" PasswordRecoveryText="¿Olvidaste tu contraseña?">
                     <TextBoxStyle CssClass="BootstrapTextBoxStyle" />

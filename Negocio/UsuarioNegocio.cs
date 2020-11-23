@@ -41,5 +41,42 @@ namespace Negocio
             datos.cerrarConexion();
             return user;
         }
+
+        public bool RegistrarUsuario(Usuario user)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            int ID = 0;
+            datos.setearQuery("SELECT * FROM Get_ID");
+            try
+            {
+                datos.ejecutarReader();
+                while (datos.reader.Read())
+                {
+                    ID = Convert.ToInt32(datos.reader["IDCliente"]);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            datos.cerrarConexion();
+            AccesoDatos datos2 = new AccesoDatos();
+            datos2.setearSP("EXEC SP_AgregarUsuario @id,@nombre,@clave,@email,@rol ");
+            datos2.agregarParametro("@id", ID);
+            datos2.agregarParametro("@nombre", user.Nombre);
+            datos2.agregarParametro("@clave", user.Clave);
+            datos2.agregarParametro("@email", user.Email);
+            datos2.agregarParametro("@rol", 1);
+            try
+            {
+                datos2.ejecutarAccion();
+                datos2.cerrarConexion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return true;
+        }
     }
 }
