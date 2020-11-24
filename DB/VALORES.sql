@@ -63,7 +63,8 @@ VALUES('A121BZ1',GETDATE()),
 INSERT INTO EstadoPedidos(Nombre,Descripcion)
 VALUES('Confirmado','Su pedido fue confirmado'),
 ('Cancelado','Su pedido fue cancelado'),
-('Demorado','Su pedido fue confirmado');
+('Demorado','Su pedido fue confirmado'),
+('En camino','Su pedido va en camino');
 
 
 INSERT INTO RolUsuario VALUES('Cliente'),('Admin')
@@ -74,3 +75,9 @@ INSERT INTO Clientes VALUES ('admin','Keegan','test',1,null,null,null,null,1,'11
 
 INSERT INTO Usuarios VALUES (1,'igna','1',GETDATE(),'ignaciokeegan@gmail.com',1),
 							(2,'admin','1234',GETDATE(),'ignaciokeegan@gmail.com',2)
+
+Select*from Usuarios
+Select*from Clientes
+
+Insert into EstadoPedidos(Nombre,Descripcion)
+Values('En camino','Su pedido va en camino');

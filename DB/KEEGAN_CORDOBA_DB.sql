@@ -162,6 +162,16 @@ CREATE FUNCTION dbo.TamañoCorrecto(@tamaño TINYINT,@categoria TINYINT)
     END;
 GO
 
+ CREATE PROCEDURE EstadoPedidoxID(@ID TINYINT)
+    AS BEGIN
+      SELECT Nombre,Descripcion
+      from EstadoPedidos where IDEstadoPedido = @ID
+    END
+
+exec EstadoPedidoxID 2
+
+GO
+
 ALTER TABLE KEEGAN_CORDOBA_DB..DetallePedidos ADD CONSTRAINT DP_Cant_SoloPositivos CHECK(Cantidad>0);
 GO
 ALTER TABLE KEEGAN_CORDOBA_DB..DetallePedidos ADD CONSTRAINT DP_SBT_SoloPositivos CHECK(Subtotal>=0);

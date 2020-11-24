@@ -91,5 +91,24 @@ namespace Negocio
             }
             return true;
         }
+
+        public bool EstadoPedido(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            datos.setearQuery("exec EstadoPedidoxID @ID");
+            datos.agregarParametro("@ID", id);
+            try
+            {
+                datos.ejecutarAccion();
+                datos.cerrarConexion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return true;
+
+        }
     }
 }

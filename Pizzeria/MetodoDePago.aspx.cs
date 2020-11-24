@@ -21,7 +21,7 @@ namespace Pizzeria
         {
             PedidoNegocio negocio = new PedidoNegocio();
             int factura = 224;
-            negocio.RegistrarVenta((int)Session["ID"],factura);
+            negocio.RegistrarVenta((int)Session["ID"], factura);
             foreach (DetallePedido item in carrito.Items)
             {
                 negocio.RegistrarDetalle(item);
