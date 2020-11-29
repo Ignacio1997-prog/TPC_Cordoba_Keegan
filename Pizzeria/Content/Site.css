@@ -159,13 +159,19 @@ a.sign-in {
         line-height: 2rem;
     }
 
+.content-right {
+    right: 0 !important;
+    position: fixed !important;
+    width: 20rem !important;
+}
+
 
 .sidebar {
-    right:0;
-    height:100%;
+    right: 0;
+    height: 100%;
     background-color: #2b2b2b;
     width: 20rem;
-    position:fixed;
+    position: fixed;
     color: white;
 }
 

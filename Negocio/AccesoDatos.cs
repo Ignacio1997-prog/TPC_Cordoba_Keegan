@@ -72,6 +72,22 @@ namespace Negocio
                 //conexion.Close();
             }
         }
+        internal int ejecutarScalar()
+        {
+            try
+            {
+                conexion.Open();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                //conexion.Close();
+            }
+            return (int)comando.ExecuteScalar();
+        }
         public void cerrarConexion()
         {
             conexion.Close();

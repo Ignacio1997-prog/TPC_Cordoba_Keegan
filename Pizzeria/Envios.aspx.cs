@@ -5,24 +5,17 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
+using Negocio;
 
 namespace Pizzeria
 {
-   
-    public partial class Envios : System.Web.UI.Page
+    public partial class About : Page
     {
+        
+        PedidoNegocio aux = new PedidoNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["carrito"] == null)
-            {
-                Response.Redirect("Default.aspx");
-            }
+            //aux.EstadoPedido();
         }
-        public void btnAceptar_Click(object sender, EventArgs e)
-        {
-            Response.Redirect(ResolveUrl("MetodoDePago.aspx"));
-        }
-
-        
     }
 }

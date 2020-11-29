@@ -12,6 +12,28 @@ CREATE VIEW Mostrar_Localidades AS
 SELECT IDLocalidad,Nombre FROM Localidades
 GO
 
+CREATE VIEW Mostrar_Categorias AS 
+SELECT IDCategoria,Nombre FROM Categorias
+GO
+
+
+CREATE FUNCTION Mostrar_Tamaños
+(
+@categoria TINYINT
+)
+RETURNS TABLE
+AS
+RETURN
+(
+SELECT DISTINCT TM.IDCategoria,T.IDTamaño,T.Nombre Nombre FROM CategoriasTamaños TM
+JOIN Tamaños T ON T.IDTamaño = TM.IDTamaño
+WHERE TM.IDCategoria = @categoria
+)
+GO
+
+
+SELECT * FROM Tamaños
+
 SELECT * FROM Get_ID
 
 CREATE VIEW Get_ID AS 
@@ -68,7 +90,7 @@ exec SP_AgregarCliente 'Ignacio','Cordoba','Mascardi',123,'Colombia','Florida',0
 
 GO
 
-ALTER Procedure SP_AgregarUsuario(
+CREATE Procedure SP_AgregarUsuario(
 	@IDCliente bigint,
 	@NombreUsuario varchar(50),
 	@Clave varchar(50),
@@ -93,7 +115,7 @@ exec SP_AgregarUsuario 3,'Cordoba','1','test@gmail.com',1
 
 GO
 
-ALTER Procedure SP_AgregarPedidos(
+CREATE Procedure SP_AgregarPedidos(
 	@IDCliente Bigint,
 	@IDFactura Bigint
 )
@@ -137,3 +159,32 @@ exec SP_AgregarDetallePedido 2,180.0,1,1
 exec SP_AgregarDetallePedido 4,360.0,2,1
 exec SP_AgregarDetallePedido 3,330.0,6,1
 ------------------------------
+
+SELECT * FROM CategoriasVariedades
+DECLARE @id tinyint = SELECT CAST(scope_identity() AS int); 
+INSERT INTO CategoriasVariedades VALUES (1,7)
+
+GO
+
+CREATE Procedure SP_AgregarProducto(
+	@Nombre varchar(50),
+	@Precio Money,
+	@IDCategoria tinyint,
+	@IDVariedad tinyint,
+	@IDTamaño tinyint,
+	@Estado BIT,
+	@Descripcion varchar(50)
+)
+AS
+Begin
+	Begin Try
+		Insert into Productos VALUES (@Nombre,@Precio,@IDCategoria,@IDVariedad,@IDTamaño,@Estado,@Descripcion)
+	End Try
+	Begin Catch
+		RAISERROR('Error al registrar el Producto', 16,1)
+	End Catch
+End
+------------
+exec SP_AgregarProducto 'test',100,1,7,2,1,'test'
+----------
+

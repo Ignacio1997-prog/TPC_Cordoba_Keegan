@@ -19,8 +19,13 @@ namespace Dominio
         public int IDTamanio { get; set; }
 
         public string NombreTamanio { get; set; }
+
+        public string NombreCategoria { get; set; }
+
+        public string NombreVariedad { get; set; }
         public decimal Precio { get; set; }
         public bool Estado { get; set; }
+
 
     }
 }

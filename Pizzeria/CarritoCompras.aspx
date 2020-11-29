@@ -35,7 +35,7 @@
                 </table>
                     <div class ="pull-right">
                         <a href="Default" class ="btn btn-light">Volver</a>
-                        <a href="Envios.aspx" class ="btn btn-success">Checkout</a>
+                        <a href="DetalleEnvio.aspx" class ="btn btn-success">Checkout</a>
                     </div>
             </div>
           </div>
