@@ -11,11 +11,17 @@ namespace Pizzeria
 {
     public partial class About : Page
     {
-        
-        PedidoNegocio aux = new PedidoNegocio();
+
+        public List<Pedido> listaPedido { get; set; }
+        public int aux { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            //aux.EstadoPedido();
+            if (Session["ID"] != null)
+            {
+                PedidoNegocio negocio = new PedidoNegocio();
+                listaPedido = negocio.listarxIDCliente((int)Session["ID"]);
+            }
+
         }
     }
 }
