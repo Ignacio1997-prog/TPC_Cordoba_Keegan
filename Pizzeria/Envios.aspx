@@ -10,24 +10,42 @@
         {
             foreach (Dominio.Pedido item in listaPedido)
             {%>
-            <div id="accordion">
+    <div id="accordion">
 
-                <div class="card">
-                    <div class="card-header">
-                        <a class="card-link" data-toggle="collapse" href="#collapseOne">
-                            <% = item.FechaCreacion %>
-                        </a>
-                    </div>
-                    <div id="collapseOne" class="collapse show" data-parent="#accordion">
-                        <div class="card-body">
-                            <p>Estado : <%  = item.EstadoPedido.Nombre%> </p>
-                            <p> </p>
-                            <p></p>
-                        </div>
-                    </div>
+        <div class="card">
+            <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapseOne">PEDIDO DEL DIA : <% = item.FechaCreacion %>
+                </a>
+            </div>
+            <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                <div class="card-body">
+                    <h5>Estado : <%  = item.EstadoPedido.Nombre%> </h5>
+                    <div class="container">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Cantidad</th>
+                                        <th>SubTotal</th>
+                                    </tr>
+                                </thead>
+                    <% foreach (Dominio.DetallePedido DET in listaDetallePedido)
+                        {%>
+                                <tbody>
+                                    <tr>
+                                        <td><%  = DET.Producto.Nombre%></td>
+                                        <td><%  = DET.Cantidad%></td>
+                                        <td><%  = DET.Precio%></td>
+                                    </tr>
+                                </tbody>
+                    <%}%>
+                            </table>
+                      </div>
                 </div>
             </div>
-            <%}
+        </div>
+    </div>
+    <%}
 
-    }%>
+        }%>
 </asp:Content>

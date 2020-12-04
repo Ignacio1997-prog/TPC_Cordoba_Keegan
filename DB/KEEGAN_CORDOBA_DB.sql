@@ -172,6 +172,15 @@ DROP PROCEDURE PedidoxIDCliente
       from Pedidos P,EstadoPedidos EP where IDCliente = @ID and EP.IDEstadoPedido=P.IDEstadoPedido
     END
 
+DROP PROCEDURE DetallePedidoxIDPedido
+
+CREATE PROCEDURE DetallePedidoxIDPedido(@ID TINYINT)
+	AS BEGIN
+      Select IDDetallePedido,Cantidad,Subtotal,P.Nombre From DetallePedidos DP, Productos P,Pedidos PED
+	  Where PED.IDCliente=@ID and PED.IDPedido=DP.IDPedido and P.IDProducto=DP.IDProducto 
+    END
+
+EXEC DetallePedidoxIDPedido 1
 
 exec PedidoxIDCliente 1
 Select * From Clientes

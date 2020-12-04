@@ -13,6 +13,8 @@ namespace Pizzeria
     {
 
         public List<Pedido> listaPedido { get; set; }
+
+        public List<DetallePedido> listaDetallePedido { get; set; }
         public int aux { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -20,6 +22,10 @@ namespace Pizzeria
             {
                 PedidoNegocio negocio = new PedidoNegocio();
                 listaPedido = negocio.listarxIDCliente((int)Session["ID"]);
+
+                DetallePedidoNegocio negocioDetallePedido = new DetallePedidoNegocio();
+                listaDetallePedido = negocioDetallePedido.listarDPP((int)Session["ID"]);
+
             }
 
         }
