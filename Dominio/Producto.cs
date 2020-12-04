@@ -24,7 +24,7 @@ namespace Dominio
 
         public string NombreVariedad { get; set; }
         public decimal Precio { get; set; }
-        public bool Estado { get; set; }
+        public int Estado { get; set; }
 
 
     }

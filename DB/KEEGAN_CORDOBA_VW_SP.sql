@@ -1,5 +1,7 @@
 USE KEEGAN_CORDOBA_DB
 GO
+
+
 CREATE VIEW Mostrar_Productos AS 
 SELECT * FROM (
 SELECT Nombre,IDCategoria,IDVariedad,Descripcion,Estado,
@@ -7,6 +9,9 @@ row_number() OVER (PARTITION BY IDVariedad ORDER BY P.IDVariedad ASC) AS fila
 FROM Productos P
 WHERE Estado = 1) ctd WHERE fila = 1
 GO
+
+SELECT * FROM Mostrar_Productos
+
 
 CREATE VIEW Mostrar_Localidades AS 
 SELECT IDLocalidad,Nombre FROM Localidades
@@ -32,9 +37,6 @@ WHERE TM.IDCategoria = @categoria
 GO
 
 
-SELECT * FROM Tamaños
-
-SELECT * FROM Get_ID
 
 CREATE VIEW Get_ID AS 
 SELECT TOP 1 IDCliente FROM Clientes ORDER BY IDCliente DESC
@@ -55,7 +57,7 @@ RETURNS TABLE
 AS
 RETURN
 (
-SELECT P.IDProducto,P.Nombre,P.Descripcion,P.IDTamaño,T.Nombre NombreTamaño,P.Precio FROM Productos P
+SELECT P.IDProducto,P.Nombre,P.Descripcion,P.IDTamaño,T.Nombre NombreTamaño,P.Precio,P.Estado FROM Productos P
 JOIN Tamaños T ON T.IDTamaño = P.IDTamaño
 WHERE IDCategoria = @categoria AND IDVariedad = @variedad
 )
@@ -188,3 +190,93 @@ End
 exec SP_AgregarProducto 'test',100,1,7,2,1,'test'
 ----------
 
+GO
+
+CREATE Procedure SP_RemoverProducto(
+	@id SMALLINT
+)
+AS
+Begin
+	Begin Try
+		DELETE FROM Productos WHERE IDProducto = @id
+	End Try
+	Begin Catch
+		RAISERROR('Error al borrar el Producto', 16,1)
+	End Catch
+End
+
+GO
+
+CREATE Procedure SP_RemoverProductoTodos(
+	@categoria TINYINT,
+	@variedad TINYINT
+)
+AS
+Begin
+	Begin Try
+		DELETE FROM Productos WHERE IDCategoria = @categoria AND IDVariedad = @variedad
+	End Try
+	Begin Catch
+		RAISERROR('Error al borrar el Producto', 16,1)
+	End Catch
+End
+
+GO
+
+
+CREATE Procedure SP_ModificarPrecio(
+	@producto SMALLINT,
+	@precio MONEY
+)
+AS
+Begin
+	Begin Try
+		UPDATE Productos SET Precio = @precio WHERE IDProducto = @producto
+	End Try
+	Begin Catch
+		RAISERROR('Error al modificar el Producto', 16,1)
+	End Catch
+End
+
+GO
+
+CREATE Procedure SP_ModificarNombre(
+	@producto SMALLINT,
+	@nombre VARCHAR(50)
+)
+AS
+Begin
+	Begin Try
+		UPDATE Productos SET Nombre = @nombre WHERE IDProducto = @producto
+	End Try
+	Begin Catch
+		RAISERROR('Error al modificar el Producto', 16,1)
+	End Catch
+End
+
+GO
+
+
+CREATE TRIGGER TR_BajaLogica_Producto ON Productos
+INSTEAD OF DELETE
+AS
+BEGIN
+	BEGIN TRY
+		BEGIN TRANSACTION
+			DECLARE @producto SMALLINT
+			SELECT @producto = IDProducto FROM DELETED
+
+			UPDATE Productos SET Estado = 0 WHERE IDProducto = @producto
+
+		COMMIT TRANSACTION
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION
+	END CATCH
+END
+
+UPDATE Productos SET Precio = 180 WHERE IDProducto = 2
+
+DELETE FROM Productos WHERE IDCategoria = 1 AND IDVariedad = 2
+
+SELECT * FROM Productos WHERE IDCategoria = 1 AND IDVariedad = 2

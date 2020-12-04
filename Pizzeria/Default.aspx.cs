@@ -13,6 +13,8 @@ namespace Pizzeria
     {
         public List<Producto> listaProducto { get; set; }
         public List<Producto> listaDetalle { get; set; }
+        public List<Producto> listaRemover { get; set; }
+        public List<Producto> listaModificar{ get; set; }
 
         protected Pedido carrito = new Pedido();
         public decimal total;
@@ -47,6 +49,24 @@ namespace Pizzeria
             Response.Redirect(ResolveUrl("Detalle.aspx"));
         }
 
+        public void btnRemover_Click(object sender, EventArgs e)
+        {
 
+            string text = (sender as LinkButton).CommandArgument.ToString();
+            int idCat = int.Parse(text.Split(',')[0]);
+            int idVar = int.Parse(text.Split(',')[1]);
+            List<Producto> listaRemover = aux.listarDetalle(idCat, idVar);
+            Session.Add("productoSeleccionado", listaRemover);
+            Response.Redirect(ResolveUrl("Remover.aspx"));
+        }
+        public void btnModificar_Click(object sender, EventArgs e)
+        {
+            string text = (sender as LinkButton).CommandArgument.ToString();
+            int idCat = int.Parse(text.Split(',')[0]);
+            int idVar = int.Parse(text.Split(',')[1]);
+            List<Producto> listaModificar = aux.listarDetalle(idCat, idVar);
+            Session.Add("productoSeleccionado", listaModificar);
+            Response.Redirect(ResolveUrl("Modificar.aspx"));
+        }
     }
 }

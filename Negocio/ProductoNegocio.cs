@@ -14,7 +14,7 @@ namespace Negocio
         {
             List<Producto> lista = new List<Producto>();
             AccesoDatos datos = new AccesoDatos();
-            datos.setearQuery("SELECT * FROM Mostrar_Productos");
+            datos.setearQuery("SELECT * FROM Mostrar_Productos WHERE Estado = 1");
             try
             {
                 datos.ejecutarReader();
@@ -25,6 +25,7 @@ namespace Negocio
                     aux.IDCategoria = Convert.ToInt32(datos.reader["IDCategoria"]);
                     aux.IDVariedad = Convert.ToInt32(datos.reader["IDVariedad"]);
                     aux.Descripcion = (string)datos.reader["Descripcion"];
+                    aux.Estado = Convert.ToInt32(datos.reader["Estado"]);
 
                     lista.Add(aux);
 
@@ -113,6 +114,7 @@ namespace Negocio
                     aux.NombreTamanio = (string)datos.reader["NombreTamaño"];
                     aux.IDTamanio = Convert.ToInt32(datos.reader["IDTamaño"]);
                     aux.Precio = Convert.ToInt32(datos.reader["Precio"]);
+                    aux.Estado = Convert.ToInt32(datos.reader["Estado"]);
 
                     lista.Add(aux);
 
@@ -174,6 +176,55 @@ namespace Negocio
             catch (Exception)
             {
                     throw;
+            }
+        }
+
+        public void RemoverProducto(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            datos.setearSP("DELETE FROM Productos WHERE IDProducto = @id");
+            datos.agregarParametro("@id", id);
+            try
+            {
+                datos.ejecutarAccion();
+                datos.cerrarConexion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void ModificarNombre(int id,string nombre)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            datos.setearSP("EXEC SP_ModificarNombre @Producto,@Nombre");
+            datos.agregarParametro("@Producto", id);
+            datos.agregarParametro("@Nombre", nombre);
+            try
+            {
+                datos.ejecutarAccion();
+                datos.cerrarConexion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public void ModificarPrecio(int id,decimal precio)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            datos.setearSP("EXEC SP_ModificarPrecio @Producto,@Precio");
+            datos.agregarParametro("@Producto", id);
+            datos.agregarParametro("@Precio", precio);
+            try
+            {
+                datos.ejecutarAccion();
+                datos.cerrarConexion();
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

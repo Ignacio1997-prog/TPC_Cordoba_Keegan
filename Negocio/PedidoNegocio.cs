@@ -38,6 +38,7 @@ namespace Negocio
             }
 
         }
+
         public bool RegistrarVenta(int ID,int factura)
         {
             AccesoDatos datos = new AccesoDatos();

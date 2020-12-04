@@ -15,8 +15,14 @@
                                             <ul class="pizza-cards">
                                                 <li style="background-image: url('https://www.demoslavueltaaldia.com/sites/default/files/styles/recetas_listado/public/pizza-de-mozzarella-jamon-y-morron.jpg.jpg?itok=_lTpWe1d')">
                                                         <div class="pizza-info">
+                                                            <% if((bool)Session["Admin"]) { %>
+                                                            <asp:LinkButton CssClass="btn btn-danger" ID = "LinkButton1" runat="server" Text='X' OnClick ="btnRemover_Click" CommandArgument=<%# Eval("IDCategoria").ToString() + "," + Eval("IDVariedad").ToString() %>></asp:LinkButton></td>
+                                                            <asp:LinkButton CssClass="btn btn-primary" ID = "LinkButton2" runat="server" Text='--' OnClick ="btnModificar_Click" CommandArgument=<%# Eval("IDCategoria").ToString() + "," + Eval("IDVariedad").ToString() %>></asp:LinkButton></td>
+                                                            <% }                                    %>
                                                             <span class="title"><%# Eval("Nombre")%></span>
-                                                            <asp:LinkButton CssClass="btn btn-primary" ID = "LinkButton1" runat="server" Text='Detalle' OnClick ="btnDetalle_Click" CommandArgument=<%# Eval("IDCategoria").ToString() + "," + Eval("IDVariedad").ToString() %>></asp:LinkButton>
+                                                            <% if((bool)Session["Admin"] == false) { %>
+                                                            <asp:LinkButton CssClass="btn btn-primary" ID = "LinkButton3" runat="server" Text='Detalle' OnClick ="btnDetalle_Click" CommandArgument=<%# Eval("IDCategoria").ToString() + "," + Eval("IDVariedad").ToString() %>></asp:LinkButton>
+                                                            <% }                                    %>
                                                         </div>
                                                     </a>
                                                 </li>
@@ -32,8 +38,14 @@
                                             <ul class="pizza-cards">
                                                 <li style="background-image: url('https://t2.rg.ltmcdn.com/es/images/6/9/4/img_empanadas_de_jamon_queso_y_huevo_7496_600.jpg')">
                                                         <div class="pizza-info">
+                                                            <% if((bool)Session["Admin"]) { %>
+                                                            <asp:LinkButton CssClass="btn btn-danger" ID = "LinkButton1" runat="server" Text='X' OnClick ="btnRemover_Click" CommandArgument=<%# Eval("IDCategoria").ToString() + "," + Eval("IDVariedad").ToString() %>></asp:LinkButton></td>
+                                                            <asp:LinkButton CssClass="btn btn-primary" ID = "LinkButton2" runat="server" Text='--' OnClick ="btnModificar_Click" CommandArgument=<%# Eval("IDCategoria").ToString() + "," + Eval("IDVariedad").ToString() %>></asp:LinkButton></td>
+                                                            <% }                                    %>
                                                             <span class="title"><%# Eval("Nombre")%></span>
-                                                            <asp:LinkButton CssClass="btn btn-primary" ID = "LinkButton1" runat="server" Text='Detalle' OnClick ="btnDetalle_Click" CommandArgument=<%# Eval("IDCategoria").ToString() + ","  +  Eval("IDVariedad").ToString() %>></asp:LinkButton>
+                                                            <% if((bool)Session["Admin"] == false) { %>
+                                                            <asp:LinkButton CssClass="btn btn-primary" ID = "LinkButton4" runat="server" Text='Detalle' OnClick ="btnDetalle_Click" CommandArgument=<%# Eval("IDCategoria").ToString() + ","  +  Eval("IDVariedad").ToString() %>></asp:LinkButton>
+                                                            <% }                                    %>
                                                         </div>
                                                 </li>
                                             </ul>
