@@ -38,12 +38,7 @@ namespace Negocio
             }
 
         }
-<<<<<<< HEAD
-
-        public bool RegistrarVenta(int ID,int factura)
-=======
         public bool RegistrarVenta(int ID, int factura)
->>>>>>> d3cb935071a9873c9ae3c97d8b0485b3ad46c904
         {
             AccesoDatos datos = new AccesoDatos();
             datos.setearSP("EXEC SP_AgregarPedidos @IDCliente,@@IDFactura ");
@@ -100,7 +95,7 @@ namespace Negocio
         public bool EstadoPedido(int id)
         {
             AccesoDatos datos = new AccesoDatos();
-            datos.setearQuery("exec EstadoPedidoxID @ID");
+            datos.setearQuery("exec SP_EstadoPedidoxID @ID");
             datos.agregarParametro("@ID", id);
             try
             {
@@ -120,7 +115,7 @@ namespace Negocio
         {
             List<Pedido> lista = new List<Pedido>();
             AccesoDatos datos = new AccesoDatos();
-            datos.setearQuery("exec PedidoxIDCliente @ID");
+            datos.setearQuery("exec SP_PedidoxIDCliente @ID");
             datos.agregarParametro("@ID", Id);
             try
             {

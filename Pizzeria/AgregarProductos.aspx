@@ -32,7 +32,7 @@
                                <asp:Repeater runat="server" ID="tamaños">
                                      <ItemTemplate>
                                            <div>
-                                               <asp:Label id="IDTamanio" Text=<%# Eval("IDTamanio")%> Visible="True" runat="server" />
+                                               <asp:Label id="IDTamanio" Text=<%# Eval("IDTamanio")%> Visible="False" runat="server" />
                                                <label id="nombreTamaño" style="text-align:left"><%# Eval("NombreTamanio")%>  <p style="display:inline-block">Ingrese el precio : <asp:TextBox ID="Precio" runat="server" CssClass="form-control input-lg" Width="250px" TabIndex="1"></asp:TextBox></p>                                          
                                             </div>
                                      </ItemTemplate>

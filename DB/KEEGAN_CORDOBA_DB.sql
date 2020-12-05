@@ -162,34 +162,6 @@ CREATE FUNCTION dbo.TamañoCorrecto(@tamaño TINYINT,@categoria TINYINT)
     END;
 GO
 
-Select* From Pedidos
-
-DROP PROCEDURE PedidoxIDCliente
-
- CREATE PROCEDURE PedidoxIDCliente(@ID TINYINT)
-    AS BEGIN
-      SELECT P.IDPedido,P.FechaCreacion,EP.Nombre,P.IDFactura
-      from Pedidos P,EstadoPedidos EP where IDCliente = @ID and EP.IDEstadoPedido=P.IDEstadoPedido
-    END
-
-
-exec PedidoxIDCliente 1
-Select * From Clientes
-Select * From Usuarios
-Select * From RolUsuario
-Select * From Pedidos
-Select * From DetallePedidos
-
- CREATE PROCEDURE EstadoPedidoxID(@ID TINYINT)
-    AS BEGIN
-      SELECT Nombre,Descripcion
-      from EstadoPedidos where IDEstadoPedido = @ID
-    END
-
-exec EstadoPedidoxID 2
-
-GO
-
 ALTER TABLE KEEGAN_CORDOBA_DB..DetallePedidos ADD CONSTRAINT DP_Cant_SoloPositivos CHECK(Cantidad>0);
 GO
 ALTER TABLE KEEGAN_CORDOBA_DB..DetallePedidos ADD CONSTRAINT DP_SBT_SoloPositivos CHECK(Subtotal>=0);

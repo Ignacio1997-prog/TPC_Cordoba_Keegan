@@ -288,8 +288,29 @@ BEGIN
 	END CATCH
 END
 
-UPDATE Productos SET Precio = 180 WHERE IDProducto = 2
+GO
 
-DELETE FROM Productos WHERE IDCategoria = 1 AND IDVariedad = 2
+CREATE PROCEDURE SP_PedidoxIDCliente(@ID TINYINT)
+    AS BEGIN
+      SELECT P.IDPedido,P.FechaCreacion,EP.Nombre,P.IDFactura
+      from Pedidos P,EstadoPedidos EP where IDCliente = @ID and EP.IDEstadoPedido=P.IDEstadoPedido
+	END
 
-SELECT * FROM Productos WHERE IDCategoria = 1 AND IDVariedad = 2
+GO
+
+exec SP_PedidoxIDCliente 1
+Select * From Clientes
+Select * From Usuarios
+Select * From RolUsuario
+Select * From Pedidos
+Select * From DetallePedidos
+
+GO
+
+CREATE PROCEDURE SP_EstadoPedidoxID(@ID TINYINT)
+    AS BEGIN
+      SELECT Nombre,Descripcion
+      from EstadoPedidos where IDEstadoPedido = @ID
+    END
+
+exec EstadoPedidoxID 2
