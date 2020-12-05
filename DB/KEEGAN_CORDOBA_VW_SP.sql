@@ -10,8 +10,11 @@ FROM Productos P
 WHERE Estado = 1) ctd WHERE fila = 1
 GO
 
+<<<<<<< HEAD
 SELECT * FROM Mostrar_Productos
 
+=======
+>>>>>>> d3cb935071a9873c9ae3c97d8b0485b3ad46c904
 
 CREATE VIEW Mostrar_Localidades AS 
 SELECT IDLocalidad,Nombre FROM Localidades
@@ -47,6 +50,8 @@ SELECT TOP 1 IDPedido FROM Pedidos ORDER BY IDPedido DESC
 GO
 
 SELECT * FROM Get_IDPedido
+
+
 
 CREATE FUNCTION Detalle_Producto
 (
@@ -117,6 +122,7 @@ exec SP_AgregarUsuario 3,'Cordoba','1','test@gmail.com',1
 
 GO
 
+
 CREATE Procedure SP_AgregarPedidos(
 	@IDCliente Bigint,
 	@IDFactura Bigint
@@ -134,8 +140,15 @@ End
 
 ------------------------------
 exec SP_AgregarPedidos 1,1
+Select * From Facturas
+Select * from Clientes
+select * From Pedidos
+Select * From DetallePedidos
+Select * from EstadoPedidos
 ------------------------------
 GO
+
+select * From Get_IDPedido
 
 Create Procedure SP_AgregarDetallePedido(
 	@Cantidad Tinyint,

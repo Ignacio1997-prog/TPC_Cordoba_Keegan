@@ -38,8 +38,12 @@ namespace Negocio
             }
 
         }
+<<<<<<< HEAD
 
         public bool RegistrarVenta(int ID,int factura)
+=======
+        public bool RegistrarVenta(int ID, int factura)
+>>>>>>> d3cb935071a9873c9ae3c97d8b0485b3ad46c904
         {
             AccesoDatos datos = new AccesoDatos();
             datos.setearSP("EXEC SP_AgregarPedidos @IDCliente,@@IDFactura ");
@@ -111,5 +115,38 @@ namespace Negocio
             return true;
 
         }
+
+        public List<Pedido> listarxIDCliente(int Id)
+        {
+            List<Pedido> lista = new List<Pedido>();
+            AccesoDatos datos = new AccesoDatos();
+            datos.setearQuery("exec PedidoxIDCliente @ID");
+            datos.agregarParametro("@ID", Id);
+            try
+            {
+                datos.ejecutarReader();
+                while (datos.reader.Read())
+                {
+                    Pedido aux = new Pedido();
+                    aux.id = Convert.ToInt32(datos.reader["IDPedido"]);
+                    aux.FechaCreacion = String.Format("{0:dd-MM-yyyy}", datos.reader["FechaCreacion"]);
+                    //aux.idEstadoPedido = Convert.ToInt32(datos.reader["IDEstadoPedido"]);
+                    aux.idFactura = Convert.ToInt32(datos.reader["IDFactura"]);
+
+                    aux.EstadoPedido = new EstadoPedido();
+                    aux.EstadoPedido.Nombre = (string)datos.reader["Nombre"];
+
+                    lista.Add(aux);
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

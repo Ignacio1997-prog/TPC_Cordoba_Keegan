@@ -20,6 +20,7 @@ namespace Dominio
         public int idCliente;
 
         public int idEstadoPedido;
+        public EstadoPedido EstadoPedido { get; set; }
 
         public int idFactura;
 
