@@ -29,7 +29,7 @@
                   </tbody>
                     <tfoot>
                         <tr>
-                            <td style="font-size: 15px"; class="right" colspan="4">Total </td><td style="font-size: 15px"; class="right"><% =carrito.Total()%></td>
+                            <td style="font-size: 15px"; class="right" colspan="4">Total </td><td style="font-size: 15px"; class="right"><% =carrito.Total%></td>
                         </tr>
                     </tfoot>
                 </table>

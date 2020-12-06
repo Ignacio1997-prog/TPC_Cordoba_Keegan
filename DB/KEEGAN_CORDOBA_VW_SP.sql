@@ -1,6 +1,7 @@
 USE KEEGAN_CORDOBA_DB
 GO
 
+SELECT * FROM EstadoPedidos
 
 CREATE VIEW Mostrar_Productos AS 
 SELECT * FROM (
@@ -9,6 +10,8 @@ row_number() OVER (PARTITION BY IDVariedad ORDER BY P.IDVariedad ASC) AS fila
 FROM Productos P
 WHERE Estado = 1) ctd WHERE fila = 1
 GO
+
+SELECT * FROM Pedidos
 
 <<<<<<< HEAD
 SELECT * FROM Mostrar_Productos
@@ -290,6 +293,27 @@ END
 
 GO
 
+CREATE Procedure SP_listarPedidos
+AS
+Begin
+	Begin Try
+		SELECT P.IDPedido,FORMAT(P.FechaCreacion,'hh:mm') as FechaCreacion,C.Nombre,C.Apellido,EP.IDEstadoPedido,EP.Nombre Estado,SUM(DP.Subtotal) as Total FROM Pedidos P 
+		JOIN Clientes C ON P.IDCliente = C.IDCliente
+		JOIN DetallePedidos DP ON DP.IDPedido = P.IDPedido
+		JOIN EstadoPedidos EP ON EP.IDEstadoPedido = P.IDEstadoPedido
+		GROUP BY P.IDPedido,P.FechaCreacion,C.Nombre,C.Apellido,EP.IDEstadoPedido,EP.Nombre
+		ORDER BY DATEDIFF ( minute , GETDATE() , P.FechaCreacion )
+	End Try
+	Begin Catch
+		RAISERROR('Error al listar los pedidos', 16,1)
+	End Catch
+End
+
+GO
+
+EXEC SP_listarPedidos
+
+
 CREATE PROCEDURE SP_PedidoxIDCliente(@ID TINYINT)
     AS BEGIN
       SELECT P.IDPedido,P.FechaCreacion,EP.Nombre,P.IDFactura
@@ -314,3 +338,25 @@ CREATE PROCEDURE SP_EstadoPedidoxID(@ID TINYINT)
     END
 
 exec EstadoPedidoxID 2
+
+GO
+
+ALTER Procedure SP_ModificarEstado(
+	@pedido BIGINT,
+	@estado TINYINT
+)
+AS
+Begin
+	Begin Try
+		UPDATE Pedidos SET IDEstadoPedido = @estado WHERE IDPedido = @pedido
+	End Try
+	Begin Catch
+		RAISERROR('Error al modificar el Pedido', 16,1)
+	End Catch
+End
+
+GO
+
+EXEC SP_ModificarEstado 3,1
+
+SELECT * FROM Pedidos

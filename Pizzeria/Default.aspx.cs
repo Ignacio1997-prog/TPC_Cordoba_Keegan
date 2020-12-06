@@ -27,7 +27,7 @@ namespace Pizzeria
                 carrito = (Pedido)Session["carrito"];
                 cart.DataSource = carrito.Items;
                 cart.DataBind();
-                total = carrito.Total();
+                total = carrito.Total;
             }
             if (!Page.IsPostBack)
             {

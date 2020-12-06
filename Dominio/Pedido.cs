@@ -14,17 +14,35 @@ namespace Dominio
         {
             Items = new List<DetallePedido>();
         }
-        public int id;
+        public int IDPedido { get; set; }
         public string FechaCreacion { get; set; }
 
-        public int idCliente;
+        public int idCliente { get; set; }
 
-        public int idEstadoPedido;
+        public string NombreCliente { get; set; }
+
+        public int idEstadoPedido { get; set; }
         public EstadoPedido EstadoPedido { get; set; }
 
-        public int idFactura;
+        public string NombreEstado { get; set; }
 
-        public int IDMetodoPago;
+        public int idFactura { get; set; }
+
+        public int IDMetodoPago { get; set; }
+
+        public decimal _total { get; set; }
+
+        public decimal Total
+        {
+            get
+            {
+                decimal total = 0;
+                foreach (DetallePedido i in Items)
+                    total += i.PrecioTotal;
+                return total;
+            }
+            set { _total = value; }
+        }
 
         public void AgregarItem(DetallePedido item)
         {
@@ -79,12 +97,5 @@ namespace Dominio
             }
         }
 
-        public decimal Total()
-        {
-            decimal total = 0;
-            foreach (DetallePedido i in Items)
-                total += i.PrecioTotal;
-            return total;
-        }
     }
 }

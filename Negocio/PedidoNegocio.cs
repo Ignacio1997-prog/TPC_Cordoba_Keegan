@@ -21,7 +21,7 @@ namespace Negocio
                 while (datos.reader.Read())
                 {
                     Pedido aux = new Pedido();
-                    aux.id = (int)datos.reader["IDPedido"];
+                    aux.IDPedido = (int)datos.reader["IDPedido"];
                     aux.FechaCreacion = (string)datos.reader["FechaCreacion"];
                     aux.idCliente = (int)datos.reader["IDCliente"];
                     aux.idEstadoPedido = (int)datos.reader["IDEstadoPedido"];
@@ -123,7 +123,7 @@ namespace Negocio
                 while (datos.reader.Read())
                 {
                     Pedido aux = new Pedido();
-                    aux.id = Convert.ToInt32(datos.reader["IDPedido"]);
+                    aux.IDPedido = Convert.ToInt32(datos.reader["IDPedido"]);
                     aux.FechaCreacion = String.Format("{0:dd-MM-yyyy}", datos.reader["FechaCreacion"]);
                     //aux.idEstadoPedido = Convert.ToInt32(datos.reader["IDEstadoPedido"]);
                     aux.idFactura = Convert.ToInt32(datos.reader["IDFactura"]);
@@ -140,6 +140,79 @@ namespace Negocio
             {
 
                 throw;
+            }
+        }
+
+        public List<Pedido> listarPedidos()
+        {
+            List<Pedido> lista = new List<Pedido>();
+            AccesoDatos datos = new AccesoDatos();
+            datos.setearQuery("exec SP_listarPedidos");
+            try
+            {
+                datos.ejecutarReader();
+                while (datos.reader.Read())
+                {
+                    Pedido aux = new Pedido();
+                    aux.IDPedido = Convert.ToInt32(datos.reader["IDPedido"]);
+                    aux.FechaCreacion = String.Format("{0:dd-MM-yyyy}", datos.reader["FechaCreacion"]);
+                    aux.NombreCliente = (string)datos.reader["Nombre"] + " " + (string)datos.reader["Apellido"];
+                    aux.EstadoPedido = new EstadoPedido();
+                    aux.idEstadoPedido = Convert.ToInt32(datos.reader["IDEstadoPedido"]);
+                    aux.EstadoPedido.Nombre = (string)datos.reader["Estado"];
+                    aux.NombreEstado = (string)datos.reader["Estado"];
+                    aux._total = (decimal)datos.reader["Total"];
+
+                    lista.Add(aux);
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<EstadoPedido> listarEstados()
+        {
+            List<EstadoPedido> lista = new List<EstadoPedido>();
+            AccesoDatos datos = new AccesoDatos();
+            datos.setearQuery("SELECT IDEstadoPedido,Nombre FROM EstadoPedidos");
+            try
+            {
+                datos.ejecutarReader();
+                while (datos.reader.Read())
+                {
+                    EstadoPedido aux = new EstadoPedido();
+                    aux.ID = Convert.ToInt32(datos.reader["IDEstadoPedido"]);
+                    aux.Nombre = (string)datos.reader["Nombre"];
+
+                    lista.Add(aux);
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void modificarEstado(int pedido,int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            datos.setearQuery("EXEC SP_ModificarEstado @pedido,@estado");
+            datos.agregarParametro("@pedido", pedido);
+            datos.agregarParametro("@estado", id);
+            try
+            {
+                datos.ejecutarAccion();
+                datos.cerrarConexion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 

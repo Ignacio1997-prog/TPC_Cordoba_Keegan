@@ -22,7 +22,9 @@ textarea {
     max-width: 280px;
 }
 
-
+.col0 {
+    display: none;
+}
 
 
 /* Responsive: Portrait tablets and up */
