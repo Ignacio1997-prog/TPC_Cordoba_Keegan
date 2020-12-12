@@ -21,6 +21,8 @@ namespace Dominio
 
         public string NombreCliente { get; set; }
 
+        public string Direccion { get; set; }
+
         public int idEstadoPedido { get; set; }
         public EstadoPedido EstadoPedido { get; set; }
 

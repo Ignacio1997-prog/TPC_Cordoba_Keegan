@@ -1,7 +1,7 @@
 USE KEEGAN_CORDOBA_DB
 GO
 
-SELECT * FROM EstadoPedidos
+SELECT IDLocalidad,Nombre FROM Localidades
 
 CREATE VIEW Mostrar_Productos AS 
 SELECT * FROM (
@@ -293,15 +293,17 @@ END
 
 GO
 
-CREATE Procedure SP_listarPedidos
+ALTER Procedure SP_listarPedidos
 AS
 Begin
 	Begin Try
-		SELECT P.IDPedido,FORMAT(P.FechaCreacion,'hh:mm') as FechaCreacion,C.Nombre,C.Apellido,EP.IDEstadoPedido,EP.Nombre Estado,SUM(DP.Subtotal) as Total FROM Pedidos P 
+		SELECT P.IDPedido,FORMAT(P.FechaCreacion,'hh:mm') as FechaCreacion,C.Nombre,C.Apellido,CONCAT(E.Calle,SPACE(1),E.Numero,SPACE(1),L.Nombre) as Direccion,EP.IDEstadoPedido,EP.Nombre Estado,SUM(DP.Subtotal) as Total FROM Pedidos P 
 		JOIN Clientes C ON P.IDCliente = C.IDCliente
 		JOIN DetallePedidos DP ON DP.IDPedido = P.IDPedido
 		JOIN EstadoPedidos EP ON EP.IDEstadoPedido = P.IDEstadoPedido
-		GROUP BY P.IDPedido,P.FechaCreacion,C.Nombre,C.Apellido,EP.IDEstadoPedido,EP.Nombre
+		JOIN Envios E ON E.IDPedido = P.IDPedido
+		JOIN Localidades L ON L.IDLocalidad = E.IDLocalidad
+		GROUP BY P.IDPedido,P.FechaCreacion,C.Nombre,C.Apellido,CONCAT(E.Calle,SPACE(1),E.Numero,SPACE(1),L.Nombre),EP.IDEstadoPedido,EP.Nombre
 		ORDER BY DATEDIFF ( minute , GETDATE() , P.FechaCreacion )
 	End Try
 	Begin Catch
@@ -341,7 +343,7 @@ exec EstadoPedidoxID 2
 
 GO
 
-ALTER Procedure SP_ModificarEstado(
+CREATE Procedure SP_ModificarEstado(
 	@pedido BIGINT,
 	@estado TINYINT
 )
@@ -359,4 +361,29 @@ GO
 
 EXEC SP_ModificarEstado 3,1
 
-SELECT * FROM Pedidos
+GO
+
+CREATE Procedure SP_RegistrarEnvio(
+	@IDPedido BIGINT,
+	@Calle varchar(50),
+	@Numero int,
+	@EntreCalle1 varchar(50),
+	@EntreCalle2 varchar(50),
+	@Piso int,
+	@Departamento varchar(3),
+	@IDLocalidad tinyint,
+	@Telefono varchar(20),
+	@Observaciones varchar(100)
+)
+AS
+Begin
+	Begin Try
+		Insert into Envios VALUES (@IDPedido,@Calle,@Numero,@EntreCalle1,@EntreCalle2,@Piso,NULLIF(@Departamento,''),@IDLocalidad,NULLIF(@Telefono,''),NULLIF(@Observaciones, ''))
+	End Try
+	Begin Catch
+		RAISERROR('Error al registrar el envio', 16,1)
+	End Catch
+End
+
+GO
+

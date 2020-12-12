@@ -106,11 +106,11 @@ CREATE TABLE Envios(
 	Numero int not null,
 	EntreCalle1 VARCHAR(50) not null,
 	EntreCalle2 VARCHAR(50) not null,
-	Piso TINYINT not null,
-	Departamento VARCHAR(3) not null,
+	Piso TINYINT null,
+	Departamento VARCHAR(3) null,
 	IDLocalidad TINYINT null FOREIGN KEY REFERENCES Localidades(IDLocalidad),
 	Telefono VARCHAR(20) not null,
-	Observaciones VARCHAR(100) not null
+	Observaciones VARCHAR(100) null
 )
 GO
 CREATE TABLE CategoriasTamaños(

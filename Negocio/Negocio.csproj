@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="AccesoDatos.cs" />
     <Compile Include="ClienteNegocio.cs" />
+    <Compile Include="EnvioNegocio.cs" />
     <Compile Include="FacturaNegocio.cs" />
     <Compile Include="PedidoNegocio.cs" />
     <Compile Include="ProductoNegocio.cs" />

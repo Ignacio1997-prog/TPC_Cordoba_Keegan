@@ -227,5 +227,33 @@ namespace Negocio
                 throw;
             }
         }
+        public void agregarTamaño(int id, string nombre)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            int tam;
+            datos.setearQuery("INSERT INTO Tamaños VALUES (@Nombre) SELECT CAST(scope_identity() AS int);");
+            datos.agregarParametro("@Nombre", nombre);
+            try
+            {
+                tam = datos.ejecutarScalar();
+                datos.cerrarConexion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            datos.setearQuery("INSERT INTO CategoriasTamaños VALUES (@Categoria,@Tamaño);");
+            datos.agregarParametro("@Categoria", id);
+            datos.agregarParametro("@Tamaño", tam);
+            try
+            {
+                datos.ejecutarAccion();
+                datos.cerrarConexion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

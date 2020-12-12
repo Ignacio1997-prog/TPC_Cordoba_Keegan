@@ -38,7 +38,7 @@ namespace Negocio
             }
 
         }
-        public bool RegistrarVenta(int ID, int factura)
+        public int RegistrarVenta(int ID, int factura)
         {
             AccesoDatos datos = new AccesoDatos();
             datos.setearSP("EXEC SP_AgregarPedidos @IDCliente,@@IDFactura ");
@@ -53,7 +53,23 @@ namespace Negocio
             {
                 throw;
             }
-            return true;
+            AccesoDatos datos2 = new AccesoDatos();
+            int idpedido = 0;
+            datos.setearQuery("SELECT TOP 1 IDPedido FROM Pedidos ORDER BY IDPedido DESC");
+            try
+            {
+                datos.ejecutarReader();
+                while (datos.reader.Read())
+                {
+                    idpedido = Convert.ToInt32(datos.reader["IDPedido"]);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            datos.cerrarConexion();
+            return idpedido;
         }
         public bool RegistrarDetalle(DetallePedido detalle)
         {
@@ -157,6 +173,7 @@ namespace Negocio
                     aux.IDPedido = Convert.ToInt32(datos.reader["IDPedido"]);
                     aux.FechaCreacion = String.Format("{0:dd-MM-yyyy}", datos.reader["FechaCreacion"]);
                     aux.NombreCliente = (string)datos.reader["Nombre"] + " " + (string)datos.reader["Apellido"];
+                    aux.Direccion = (string)datos.reader["Direccion"];
                     aux.EstadoPedido = new EstadoPedido();
                     aux.idEstadoPedido = Convert.ToInt32(datos.reader["IDEstadoPedido"]);
                     aux.EstadoPedido.Nombre = (string)datos.reader["Estado"];
@@ -215,6 +232,7 @@ namespace Negocio
                 throw ex;
             }
         }
+
 
     }
 }

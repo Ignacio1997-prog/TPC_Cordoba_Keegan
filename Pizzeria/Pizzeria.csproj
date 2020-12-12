@@ -105,6 +105,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AgregarTamaños.aspx" />
     <Content Include="Envios.aspx" />
     <Content Include="AgregarProductos.aspx" />
     <Content Include="CarritoCompras.aspx" />
@@ -129,6 +130,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Gracias.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="MetodoDePago.aspx" />
     <Content Include="Modificar.aspx" />
@@ -177,6 +179,13 @@
     <Compile Include="AgregarProductos.aspx.designer.cs">
       <DependentUpon>AgregarProductos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AgregarTamaños.aspx.cs">
+      <DependentUpon>AgregarTamaños.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgregarTamaños.aspx.designer.cs">
+      <DependentUpon>AgregarTamaños.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Envios.aspx.cs">
       <DependentUpon>Envios.aspx</DependentUpon>
@@ -223,6 +232,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Gracias.aspx.cs">
+      <DependentUpon>Gracias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Gracias.aspx.designer.cs">
+      <DependentUpon>Gracias.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

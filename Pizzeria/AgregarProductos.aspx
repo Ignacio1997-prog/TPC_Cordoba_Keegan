@@ -24,9 +24,7 @@
                            <asp:DropDownList ID="categorias" runat="server" AutoPostBack="True" onselectedindexchanged="itemSelected" >
                            </asp:DropDownList> </p>
                            <br />
-                           <a href="#">Agregar Categoria</a>
-                           <br />
-                           <a href="#">Agregar Tamaño</a>
+                           <a href="AgregarTamaños.aspx">Agregar Tamaño</a>
                        </div>
                            <div class="col-6 col-md-6 col-sm-4 float-right">
                                <asp:Repeater runat="server" ID="tamaños">

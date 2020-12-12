@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Envios.aspx.cs" Inherits="Pizzeria.About" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <div style="padding-top:100px;width:500px;height:800px" class="container">
+    <div style="padding-top:100px;height:800px" class="container">
 
         <% if ((bool)Session["Admin"] == false)
            {%>
@@ -47,12 +47,14 @@
                 ViewStateMode="Enabled"
                 DataKeyNames ="IDPedido"
                 runat="server" AllowSorting="True"
+                SelectedRowStyle-BackColor="Crimson"
                 OnRowDataBound="Estados_RowDataBound">
                 <Columns>
                     <asp:CommandField ShowSelectButton="True" />
                     <asp:BoundField DataField="IDPedido" HeaderText="Pedido" ReadOnly="True" />
                     <asp:BoundField DataField="FechaCreacion" HeaderText="Tiempo" ReadOnly="True" />
                     <asp:BoundField DataField="NombreCliente" HeaderText="Nombre Cliente" ReadOnly="True" />
+                    <asp:BoundField DataField="Direccion" HeaderText="Direccion" ItemStyle-Width="200"  ItemStyle-Wrap="False" ReadOnly="True" />
                     <asp:BoundField DataField="_total" HeaderText="Total" ReadOnly="True" />
                     <asp:BoundField DataField="NombreEstado" HeaderText="Estado" ReadOnly="True" Visible="true" />
                     <asp:TemplateField HeaderText="Estado" SortExpression="Estado">
