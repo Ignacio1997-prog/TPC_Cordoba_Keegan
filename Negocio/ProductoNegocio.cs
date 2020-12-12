@@ -144,7 +144,8 @@ namespace Negocio
             {
                 throw;
             }
-            datos.setearQuery("INSERT INTO CategoriasVariedades VALUES (1,@id);");
+            datos.setearQuery("INSERT INTO CategoriasVariedades VALUES (@categoria,@id);");
+            datos.agregarParametro("@categoria", categoria);
             datos.agregarParametro("@id", id);
             try
             {

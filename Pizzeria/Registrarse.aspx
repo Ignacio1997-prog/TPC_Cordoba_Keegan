@@ -100,7 +100,7 @@
                                                         <td>Localidad:
                                                         </td>
                                                         <td>
-                                                            <asp:TextBox ID="Localidad" runat="server"></asp:TextBox>
+                                                            <asp:DropDownList ID="localidades" runat="server" AutoPostBack="True" ></asp:DropDownList>
                                                         </td>
                                                     </tr>
                                                     <tr>

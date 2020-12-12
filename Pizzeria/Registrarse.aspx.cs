@@ -11,9 +11,23 @@ namespace Pizzeria
 {
     public partial class Registrarse : System.Web.UI.Page
     {
+        public List<Envio> listaLocalidades = new List<Envio>();
+        EnvioNegocio envios = new EnvioNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!Page.IsPostBack)
+            {
+                listaLocalidades = envios.listarLocalidades();
+                DropDownList loc = ((DropDownList)CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("localidades"));
+                foreach (Envio env in listaLocalidades)
+                {
+                    ListItem item = new ListItem(env.NombreLocalidad, env.IDLocalidad.ToString());
+                    loc.Items.Add(item);
+                }
+                loc.DataBind();
+                loc.Items.Insert(0, new ListItem(string.Empty, string.Empty));
+                loc.SelectedIndex = 0;
+            }
         }
         protected void CreateUserWizard1_CreatingUser(object sender, EventArgs e)
         {
@@ -31,19 +45,21 @@ namespace Pizzeria
             TextBox p = (TextBox)CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Piso");
             cl.Piso = int.Parse(p.Text);
             cl.Departamento = ((TextBox)CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Departamento")).Text;
-            cl.IDLocalidad = 1;
+
+            DropDownList loc = ((DropDownList)CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("localidades"));
+            cl.IDLocalidad = Convert.ToInt32(loc.SelectedItem.Value);
             cl.Telefono = ((TextBox)CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Telefono")).Text;
 
             // Registro primero el cliente
             try
             {
-                negocio.RegistrarCliente(cl);
+                int id = negocio.RegistrarCliente(cl);
+                user.ID = id;
             }
             catch (Exception)
             {
                 throw;
             }
-
             user.Nombre = ((TextBox)CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Username")).Text;
             user.Clave = ((TextBox)CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Password")).Text;
             user.Email = ((TextBox)CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Email")).Text;

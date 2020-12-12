@@ -41,9 +41,9 @@ namespace Negocio
         public int RegistrarVenta(int ID, int factura)
         {
             AccesoDatos datos = new AccesoDatos();
-            datos.setearSP("EXEC SP_AgregarPedidos @IDCliente,@@IDFactura ");
+            datos.setearSP("EXEC SP_AgregarPedidos @IDCliente,@IDFactura ");
             datos.agregarParametro("@IDCliente", ID);
-            datos.agregarParametro("@@IDFactura", 1);
+            datos.agregarParametro("@IDFactura", 2);
             try
             {
                 datos.ejecutarAccion();

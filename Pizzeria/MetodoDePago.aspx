@@ -20,6 +20,7 @@
                                         Para realizar la compra debe registrarse 
                                     </div>
                                     <a href="Registrarse.aspx">Registrarse</a>
+                                    <a href="Login.aspx">Ingresar</a>
                          <% }%>
                         <div class="form-check">
                             <label class="form-check-label">

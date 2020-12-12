@@ -14,7 +14,10 @@ namespace Pizzeria
         protected Pedido carrito = new Pedido();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["carrito"] == null)
+            {
+                Response.Redirect("Default.aspx");
+            }
         }
 
         protected void LinkButton2_Click(object sender, EventArgs e)

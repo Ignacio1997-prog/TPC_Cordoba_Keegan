@@ -10,10 +10,11 @@ namespace Negocio
 {
     public class ClienteNegocio
     {
-        public bool RegistrarCliente(Cliente cl)
+        public int RegistrarCliente(Cliente cl)
         {
+            int id;
             AccesoDatos datos = new AccesoDatos();
-            datos.setearSP("EXEC SP_AgregarCliente @Nombre,@Apellido,@Calle,@numero,@EntreCalle1,@EntreCalle2,@Piso,@Departamento,@IDLocalidad,@Telefono ");
+            datos.setearSP("INSERT INTO Clientes VALUES (@Nombre,@Apellido,@Calle,@numero,@EntreCalle1,@EntreCalle2,@Piso,@Departamento,@IDLocalidad,@Telefono) SELECT CAST(scope_identity() AS int)");
             datos.agregarParametro("@Nombre", cl.Nombre);
             datos.agregarParametro("@Apellido", cl.Apellido);
             datos.agregarParametro("@Calle", cl.Calle);
@@ -26,14 +27,14 @@ namespace Negocio
             datos.agregarParametro("@Telefono", cl.Telefono);
             try
             {
-                datos.ejecutarAccion();
+                id = datos.ejecutarScalar();
                 datos.cerrarConexion();
             }
             catch (Exception)
             {
                 throw;
             }
-            return true;
+            return id;
         }
     }
 }

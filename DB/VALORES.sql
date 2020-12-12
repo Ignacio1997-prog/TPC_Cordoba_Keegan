@@ -76,8 +76,7 @@ INSERT INTO Clientes VALUES ('admin','Keegan','test',1,null,null,null,null,1,'11
 INSERT INTO Usuarios VALUES (1,'igna','1',GETDATE(),'ignaciokeegan@gmail.com',1),
 							(2,'admin','1234',GETDATE(),'ignaciokeegan@gmail.com',2)
 
-Select*from Usuarios
-Select*from Clientes
 
-Insert into EstadoPedidos(Nombre,Descripcion)
-Values('En camino','Su pedido va en camino');
+DELETE FROM EstadoPedidos WHERE IDEstadoPedido = 8
+
+select * from EstadoPedidos

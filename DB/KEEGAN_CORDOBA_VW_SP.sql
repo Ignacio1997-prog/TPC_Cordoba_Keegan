@@ -1,7 +1,6 @@
 USE KEEGAN_CORDOBA_DB
 GO
 
-SELECT IDLocalidad,Nombre FROM Localidades
 
 CREATE VIEW Mostrar_Productos AS 
 SELECT * FROM (
@@ -9,15 +8,9 @@ SELECT Nombre,IDCategoria,IDVariedad,Descripcion,Estado,
 row_number() OVER (PARTITION BY IDVariedad ORDER BY P.IDVariedad ASC) AS fila
 FROM Productos P
 WHERE Estado = 1) ctd WHERE fila = 1
+
 GO
 
-SELECT * FROM Pedidos
-
-<<<<<<< HEAD
-SELECT * FROM Mostrar_Productos
-
-=======
->>>>>>> d3cb935071a9873c9ae3c97d8b0485b3ad46c904
 
 CREATE VIEW Mostrar_Localidades AS 
 SELECT IDLocalidad,Nombre FROM Localidades
@@ -43,16 +36,10 @@ WHERE TM.IDCategoria = @categoria
 GO
 
 
-
-CREATE VIEW Get_ID AS 
-SELECT TOP 1 IDCliente FROM Clientes ORDER BY IDCliente DESC
-GO
-
 CREATE VIEW Get_IDPedido AS 
 SELECT TOP 1 IDPedido FROM Pedidos ORDER BY IDPedido DESC
 GO
 
-SELECT * FROM Get_IDPedido
 
 
 
@@ -72,7 +59,7 @@ WHERE IDCategoria = @categoria AND IDVariedad = @variedad
 GO
 
 
-Create Procedure SP_AgregarCliente(
+CREATE Procedure SP_AgregarCliente(
 	@Nombre varchar(50),
 	@Apellido varchar(50),
 	@Calle varchar(50),
@@ -87,16 +74,13 @@ Create Procedure SP_AgregarCliente(
 AS
 Begin
 	Begin Try
-		Insert into Clientes(Nombre,Apellido,Calle,Numero,EntreCalle1,EntreCalle2,Piso,Departamento,IDLocalidad,Telefono)
+		INSERT INTO Clientes(Nombre,Apellido,Calle,Numero,EntreCalle1,EntreCalle2,Piso,Departamento,IDLocalidad,Telefono)
 			VALUES(@Nombre,@Apellido,@Calle,@numero,@EntreCalle1,@EntreCalle2,@Piso,@Departamento,@IDLocalidad,@Telefono)
 	End Try
 	Begin Catch
 		RAISERROR('Error al registrar Cliente', 16,1)
 	End Catch
 End
-------------------------------
-exec SP_AgregarCliente 'Ignacio','Cordoba','Mascardi',123,'Colombia','Florida',0,0,1,'1132484848'
-------------------------------
 
 GO
 
@@ -118,10 +102,6 @@ Begin
 	End Catch
 End
 
-------------------------------
-exec SP_AgregarUsuario 3,'Cordoba','1','test@gmail.com',1
-------------------------------
-
 
 GO
 
@@ -141,17 +121,8 @@ Begin
 	End Catch
 End
 
-------------------------------
-exec SP_AgregarPedidos 1,1
-Select * From Facturas
-Select * from Clientes
-select * From Pedidos
-Select * From DetallePedidos
-Select * from EstadoPedidos
-------------------------------
 GO
 
-select * From Get_IDPedido
 
 Create Procedure SP_AgregarDetallePedido(
 	@Cantidad Tinyint,
@@ -170,17 +141,6 @@ Begin
 		RAISERROR('Error al registrar la Venta', 16,1)
 	End Catch
 End
-
-
-------------------------------
-exec SP_AgregarDetallePedido 2,180.0,1,1
-exec SP_AgregarDetallePedido 4,360.0,2,1
-exec SP_AgregarDetallePedido 3,330.0,6,1
-------------------------------
-
-SELECT * FROM CategoriasVariedades
-DECLARE @id tinyint = SELECT CAST(scope_identity() AS int); 
-INSERT INTO CategoriasVariedades VALUES (1,7)
 
 GO
 
@@ -202,9 +162,6 @@ Begin
 		RAISERROR('Error al registrar el Producto', 16,1)
 	End Catch
 End
-------------
-exec SP_AgregarProducto 'test',100,1,7,2,1,'test'
-----------
 
 GO
 
@@ -293,7 +250,7 @@ END
 
 GO
 
-ALTER Procedure SP_listarPedidos
+CREATE Procedure SP_listarPedidos
 AS
 Begin
 	Begin Try
@@ -313,7 +270,6 @@ End
 
 GO
 
-EXEC SP_listarPedidos
 
 
 CREATE PROCEDURE SP_PedidoxIDCliente(@ID TINYINT)
@@ -324,22 +280,12 @@ CREATE PROCEDURE SP_PedidoxIDCliente(@ID TINYINT)
 
 GO
 
-exec SP_PedidoxIDCliente 1
-Select * From Clientes
-Select * From Usuarios
-Select * From RolUsuario
-Select * From Pedidos
-Select * From DetallePedidos
-
-GO
-
 CREATE PROCEDURE SP_EstadoPedidoxID(@ID TINYINT)
     AS BEGIN
       SELECT Nombre,Descripcion
       from EstadoPedidos where IDEstadoPedido = @ID
     END
 
-exec EstadoPedidoxID 2
 
 GO
 
@@ -359,10 +305,6 @@ End
 
 GO
 
-EXEC SP_ModificarEstado 3,1
-
-GO
-
 CREATE Procedure SP_RegistrarEnvio(
 	@IDPedido BIGINT,
 	@Calle varchar(50),
@@ -378,7 +320,7 @@ CREATE Procedure SP_RegistrarEnvio(
 AS
 Begin
 	Begin Try
-		Insert into Envios VALUES (@IDPedido,@Calle,@Numero,@EntreCalle1,@EntreCalle2,@Piso,NULLIF(@Departamento,''),@IDLocalidad,NULLIF(@Telefono,''),NULLIF(@Observaciones, ''))
+		Insert into Envios VALUES (@IDPedido,@Calle,@Numero,@EntreCalle1,@EntreCalle2,@Piso,NULLIF(@Departamento,''),@IDLocalidad,@Telefono,NULLIF(@Observaciones, ''))
 	End Try
 	Begin Catch
 		RAISERROR('Error al registrar el envio', 16,1)
@@ -387,3 +329,10 @@ End
 
 GO
 
+DBCC CHECKIDENT ('Variedades', RESEED, 6)
+
+SELECT * FROM Variedades
+
+DELETE FROM Variedades WHERE IDVariedad = 7
+
+SELECT * FROM CategoriasVariedades
