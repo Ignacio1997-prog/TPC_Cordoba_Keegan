@@ -135,6 +135,7 @@
     <Content Include="MetodoDePago.aspx" />
     <Content Include="Modificar.aspx" />
     <Content Include="ModificarProducto.aspx" />
+    <Content Include="Recuperar.aspx" />
     <Content Include="Registrarse.aspx" />
     <Content Include="Remover.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -269,6 +270,13 @@
       <DependentUpon>ModificarProducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recuperar.aspx.cs">
+      <DependentUpon>Recuperar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Recuperar.aspx.designer.cs">
+      <DependentUpon>Recuperar.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Registrarse.aspx.cs">
       <DependentUpon>Registrarse.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

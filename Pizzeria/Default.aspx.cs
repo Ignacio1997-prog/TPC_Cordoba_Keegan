@@ -14,6 +14,7 @@ namespace Pizzeria
         public List<Producto> listaProducto { get; set; }
         public List<Producto> listaDetalle { get; set; }
         public List<Producto> listaRemover { get; set; }
+
         public List<Producto> listaModificar{ get; set; }
 
         protected Pedido carrito = new Pedido();
@@ -32,10 +33,12 @@ namespace Pizzeria
             if (!Page.IsPostBack)
             {
                 listaProducto = aux.listar();
+                removidos.DataSource = aux.listarRemovidos();
                 pizzas.DataSource = listaProducto.FindAll(x => x.IDCategoria == 1);
                 empanadas.DataSource = listaProducto.FindAll(x => x.IDCategoria == 2);
                 pizzas.DataBind();
                 empanadas.DataBind();
+                removidos.DataBind();
             }
 
         }
@@ -67,6 +70,16 @@ namespace Pizzeria
             List<Producto> listaModificar = aux.listarDetalle(idCat, idVar);
             Session.Add("productoSeleccionado", listaModificar);
             Response.Redirect(ResolveUrl("Modificar.aspx"));
+        }
+
+        public void btnRecuperar_Click(object sender, EventArgs e)
+        {
+            string text = (sender as LinkButton).CommandArgument.ToString();
+            int idCat = int.Parse(text.Split(',')[0]);
+            int idVar = int.Parse(text.Split(',')[1]);
+            List<Producto> listaModificar = aux.listarDetalle(idCat, idVar);
+            Session.Add("productoSeleccionado", listaModificar);
+            Response.Redirect(ResolveUrl("Recuperar.aspx"));
         }
     }
 }

@@ -40,6 +40,36 @@ namespace Negocio
             }
         }
 
+        public List<Producto> listarRemovidos()
+        {
+            List<Producto> lista = new List<Producto>();
+            AccesoDatos datos = new AccesoDatos();
+            datos.setearQuery("SELECT * FROM Mostrar_Productos WHERE Estado = 0");
+            try
+            {
+                datos.ejecutarReader();
+                while (datos.reader.Read())
+                {
+                    Producto aux = new Producto();
+                    aux.Nombre = (string)datos.reader["Nombre"];
+                    aux.IDCategoria = Convert.ToInt32(datos.reader["IDCategoria"]);
+                    aux.IDVariedad = Convert.ToInt32(datos.reader["IDVariedad"]);
+                    aux.Descripcion = (string)datos.reader["Descripcion"];
+                    aux.Estado = Convert.ToInt32(datos.reader["Estado"]);
+
+                    lista.Add(aux);
+
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public List<Producto> listarTamaños(int id)
         {
             List<Producto> lista = new List<Producto>();
@@ -161,7 +191,7 @@ namespace Negocio
         public void RegistrarProducto(Producto p)
         {
             AccesoDatos datos = new AccesoDatos();
-            datos.setearSP("EXEC SP_AgregarProducto @Nombre,@Precio,@IDCategoria,@IDVariedad,@IDTamaño,@Estado,@Descripcion");
+            datos.setearSP("INSERT INTO Productos VALUES (@Nombre,@Precio,@IDCategoria,@IDVariedad,@IDTamaño,@Estado,@Descripcion)");
             datos.agregarParametro("@Nombre", p.Nombre);
             datos.agregarParametro("@Precio", p.Precio);
             datos.agregarParametro("@IDCategoria", p.IDCategoria);
@@ -246,6 +276,22 @@ namespace Negocio
             datos.setearQuery("INSERT INTO CategoriasTamaños VALUES (@Categoria,@Tamaño);");
             datos.agregarParametro("@Categoria", id);
             datos.agregarParametro("@Tamaño", tam);
+            try
+            {
+                datos.ejecutarAccion();
+                datos.cerrarConexion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void RecuperarProducto(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            datos.setearQuery("UPDATE Productos SET Estado = 1 WHERE IDProducto = @id");
+            datos.agregarParametro("@id", id);
             try
             {
                 datos.ejecutarAccion();

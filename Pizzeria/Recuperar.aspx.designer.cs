@@ -11,43 +11,34 @@ namespace Pizzeria
 {
 
 
-    public partial class _Default
+    public partial class Recuperar
     {
 
         /// <summary>
-        /// pizzas control.
+        /// LinkButton1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater pizzas;
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
 
         /// <summary>
-        /// empanadas control.
+        /// product control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater empanadas;
+        protected global::System.Web.UI.WebControls.Repeater product;
 
         /// <summary>
-        /// cart control.
+        /// LinkButton3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater cart;
-
-        /// <summary>
-        /// removidos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater removidos;
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton3;
     }
 }

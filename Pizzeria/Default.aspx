@@ -55,6 +55,7 @@
                             </asp:Repeater>
                   </section>
              </div>
+            <% if((bool)Session["Admin"] == false) { %>
            <div class="col-4 col-md-4 col-sm-6 sidebar">
                 <div class="order-contents">
                       <h2>Tu Pedido</h2>
@@ -73,6 +74,29 @@
                       <a href="CarritoCompras.aspx" class="btn btn-warning" style="margin-left: 8em">Orden</a>
                  </div>
             </div>
-    </div> 
+            <% }                                    
+            else { %>
+            <div style="border-left: 4px solid black; height: 1000px;"></div>
+            <h4 style="margin-top: 80px;margin-left:120px;">Productos Removidos</h4>
+            <div style="margin-top: 140px"; class="col-4 col-md-4 col-sm-6 content-right">
+                <asp:Repeater runat="server" ID="removidos">
+                     <ItemTemplate>
+                          <div class="col-md-3">
+                               <div class="main">
+                                  <ul class="pizza-cards">
+                                      <li style="background-image: url('https://t2.rg.ltmcdn.com/es/images/6/9/4/img_empanadas_de_jamon_queso_y_huevo_7496_600.jpg')">
+                                           <div class="pizza-info">
+                                                <asp:LinkButton CssClass="btn btn-danger" ID = "LinkButton1" runat="server" Text='X' OnClick ="btnRecuperar_Click" CommandArgument=<%# Eval("IDCategoria").ToString() + "," + Eval("IDVariedad").ToString() %>></asp:LinkButton></td>
+                                                  <span class="title"><%# Eval("Nombre")%></span>
+                                           </div>
+                                      </li>
+                                   </ul>
+                               </div> 
+                          </div> 
+                     </ItemTemplate>
+                 </asp:Repeater>
+            </div>
+            <% }                                    %>
+        </div>
 </div> 
 </asp:Content>

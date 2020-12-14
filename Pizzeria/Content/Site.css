@@ -177,6 +177,14 @@ a.sign-in {
     color: white;
 }
 
+.sidebaradmin {
+    right: 0;
+    height: 100%;
+    width: 20rem;
+    position: fixed;
+    color: white;
+}
+
 .order-contents {
     overflow-y: auto;
     padding: 2rem 1.5rem 1.5rem 1.5rem;

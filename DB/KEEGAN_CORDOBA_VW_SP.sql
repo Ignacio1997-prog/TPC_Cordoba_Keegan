@@ -6,8 +6,7 @@ CREATE VIEW Mostrar_Productos AS
 SELECT * FROM (
 SELECT Nombre,IDCategoria,IDVariedad,Descripcion,Estado,
 row_number() OVER (PARTITION BY IDVariedad ORDER BY P.IDVariedad ASC) AS fila
-FROM Productos P
-WHERE Estado = 1) ctd WHERE fila = 1
+FROM Productos P) ctd WHERE fila = 1
 
 GO
 
@@ -144,6 +143,7 @@ End
 
 GO
 
+
 CREATE Procedure SP_AgregarProducto(
 	@Nombre varchar(50),
 	@Precio Money,
@@ -156,7 +156,7 @@ CREATE Procedure SP_AgregarProducto(
 AS
 Begin
 	Begin Try
-		Insert into Productos VALUES (@Nombre,@Precio,@IDCategoria,@IDVariedad,@IDTamaño,@Estado,@Descripcion)
+		INSERT INTO Productos VALUES (@Nombre,@Precio,@IDCategoria,@IDVariedad,@IDTamaño,@Estado,@Descripcion)
 	End Try
 	Begin Catch
 		RAISERROR('Error al registrar el Producto', 16,1)
@@ -328,11 +328,3 @@ Begin
 End
 
 GO
-
-DBCC CHECKIDENT ('Variedades', RESEED, 6)
-
-SELECT * FROM Variedades
-
-DELETE FROM Variedades WHERE IDVariedad = 7
-
-SELECT * FROM CategoriasVariedades
