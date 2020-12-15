@@ -27,6 +27,10 @@ namespace Dominio
             Cantidad = 0;
         }
 
+        public DetallePedido()
+        {
+
+        }
     }
 }
 

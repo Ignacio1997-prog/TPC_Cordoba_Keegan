@@ -131,7 +131,7 @@ namespace Negocio
         {
             List<Pedido> lista = new List<Pedido>();
             AccesoDatos datos = new AccesoDatos();
-            datos.setearQuery("exec SP_PedidoxIDCliente @ID");
+            datos.setearQuery("Select * From PedidosXIDUsuario(@ID)");
             datos.agregarParametro("@ID", Id);
             try
             {
@@ -142,10 +142,16 @@ namespace Negocio
                     aux.IDPedido = Convert.ToInt32(datos.reader["IDPedido"]);
                     aux.FechaCreacion = String.Format("{0:dd-MM-yyyy}", datos.reader["FechaCreacion"]);
                     //aux.idEstadoPedido = Convert.ToInt32(datos.reader["IDEstadoPedido"]);
-                    aux.idFactura = Convert.ToInt32(datos.reader["IDFactura"]);
+                    aux.Factura = (string)datos.reader["Factura"];
+
+                    aux.DetPedido = new DetallePedido();
+                    aux.DetPedido.Cantidad = Convert.ToInt32(datos.reader["Cantidad"]);
+                    aux.DetPedido.Precio = Convert.ToDecimal(datos.reader["Subtotal"]);
+                    aux.DetPedido.Nombre = (string)datos.reader["Nombre"];
+
 
                     aux.EstadoPedido = new EstadoPedido();
-                    aux.EstadoPedido.Nombre = (string)datos.reader["Nombre"];
+                    aux.EstadoPedido.Nombre = (string)datos.reader["Estado"];
 
                     lista.Add(aux);
                 }

@@ -26,6 +26,7 @@ namespace Pizzeria
             {
                 if (Session["ID"] != null & (bool)Session["Admin"] == false)
                 {
+                    PedidoNegocio negocio = new PedidoNegocio();
                     listaPedido = negocio.listarxIDCliente((int)Session["ID"]);
 
                 }

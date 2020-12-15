@@ -26,9 +26,13 @@ namespace Dominio
         public int idEstadoPedido { get; set; }
         public EstadoPedido EstadoPedido { get; set; }
 
+        public DetallePedido DetPedido { get; set; }
+
         public string NombreEstado { get; set; }
 
         public int idFactura { get; set; }
+
+        public string Factura { get; set; }
 
         public int IDMetodoPago { get; set; }
 

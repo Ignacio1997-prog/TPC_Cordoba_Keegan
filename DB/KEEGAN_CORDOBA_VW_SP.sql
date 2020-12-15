@@ -328,3 +328,33 @@ Begin
 End
 
 GO
+
+Select * From Pedidos
+Select * From DetallePedidos
+Select * From Facturas
+
+DROP FUNCTION PedidosXIDUsuario
+
+CREATE FUNCTION PedidosXIDUsuario
+(
+@ID BIGINT
+)
+RETURNS TABLE
+AS
+RETURN
+(
+Select P.IDPedido,P.FechaCreacion,P.IDCliente,EP.Nombre Estado,F.Nombre Factura,isnull(DP.Cantidad,0) Cantidad,isnull(DP.Subtotal,0) Subtotal,isnull(Productos.Nombre,'') Nombre From Pedidos P
+Left Join DetallePedidos DP ON DP.IDPedido=P.IDPedido
+Join EstadoPedidos EP ON EP.IDEstadoPedido=P.IDEstadoPedido
+Join Facturas F ON F.IDFactura=P.IDFactura
+Left Join Productos ON Productos.IDProducto=DP.IDProducto
+)
+GO
+
+
+Select * From PedidosXIDUsuario(1)
+Select * From Pedidos P
+Left Join DetallePedidos DP ON DP.IDPedido=P.IDPedido
+
+
+DELETE FROM Pedidos WHERE IDPedido = 16
