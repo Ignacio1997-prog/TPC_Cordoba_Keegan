@@ -10,8 +10,8 @@
         <h3>ESTADO DE SU PEDIDO </h3>
         <h4>Aqui podra ver todos sus pedidos hasta la actualidad </h4>
         <p></p>
-        <% foreach (Dominio.Pedido item in listaPedido)
-            {%>
+        <%   foreach (Dominio.Pedido item in listaPedido)
+            { %>
         <div id="accordion">
 
             <div class="card">
@@ -24,6 +24,7 @@
                 <div id="collapseOne" class="collapse show" data-parent="#accordion">
                     <div class="card-body">
                         <p>Estado : <%  = item.EstadoPedido.Nombre %> </p>
+
                         <div class="container">
                             <table class="table table-bordered">
                                 <thead>
@@ -33,15 +34,20 @@
                                         <th>SubTotal</th>
                                         <th>TOTAL</th>
                                     </tr>
-                                </thead >     
+                                </thead>
+                                <% foreach (Dominio.DetallePedido item2 in listaDetallePedido)
+                                    { if (item.IDPedido == item2.IDPedido)
+                                        {%>
                                 <tbody>
                                     <tr>
-                                        <td><%  = item.DetPedido.Nombre%></td>
-                                        <td><%  = item.DetPedido.Cantidad%></td>
-                                        <td><%  = item.DetPedido.Precio%></td>
-                                        <td><%  = item.DetPedido.PrecioTotal%></td>
+                                        <td><%  = item2.Nombre%></td>
+                                        <td><%  = item2.Cantidad%></td>
+                                        <td><%  = item2.Precio%></td>
+                                        <td><%  = item2.PrecioTotal%></td>
                                     </tr>
                                 </tbody>
+                                <% }
+                                            }%>
                             </table>
                         </div>
                     </div>

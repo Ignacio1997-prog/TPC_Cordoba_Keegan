@@ -11,6 +11,8 @@ namespace Dominio
         public int Cantidad { get; set; }
         public decimal PrecioTotal { get => (Precio * Cantidad); }
 
+        public int IDPedido { get; set; }
+
         public DetallePedido(int id)
         {
             IDProducto = id;

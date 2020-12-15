@@ -346,18 +346,25 @@ RETURNS TABLE
 AS
 RETURN
 (
-Select P.IDPedido,P.FechaCreacion,P.IDCliente,EP.Nombre Estado,F.Nombre Factura,isnull(DP.Cantidad,0) Cantidad,isnull(DP.Subtotal,0) Subtotal,isnull(Productos.Nombre,'') Nombre From Pedidos P
-Left Join DetallePedidos DP ON DP.IDPedido=P.IDPedido
-Join EstadoPedidos EP ON EP.IDEstadoPedido=P.IDEstadoPedido
-Join Facturas F ON F.IDFactura=P.IDFactura
-Left Join Productos ON Productos.IDProducto=DP.IDProducto
+Select P.IDPedido,P.FechaCreacion,EP.Nombre From Pedidos P, EstadoPedidos EP
+Where P.IDEstadoPedido=EP.IDEstadoPedido and P.IDCliente=@ID
 )
 GO
+
+
+CREATE VIEW DPXIDPedido AS 
+Select DP.IDPedido,isnull(DP.Cantidad,0) Cantidad,isnull(DP.Subtotal,0) Subtotal,isnull(P.Nombre,'') Nombre From DetallePedidos DP, Productos P
+Where P.IDProducto=DP.IDProducto
+GO
+
+Select * From DPXIDPedido
+
 
 USE KEEGAN_CORDOBA_DB
 GO
 
-
+Select * From DPXIDPedido(21)
+Select * From DetallePedidos
 Select * From PedidosXIDUsuario(1)
 Select * From Pedidos P
 Left Join DetallePedidos DP ON DP.IDPedido=P.IDPedido

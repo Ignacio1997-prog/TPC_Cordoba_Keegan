@@ -110,16 +110,38 @@ namespace Negocio
                     aux.IDPedido = Convert.ToInt32(datos.reader["IDPedido"]);
                     aux.FechaCreacion = String.Format("{0:dd-MM-yyyy}", datos.reader["FechaCreacion"]);
                     //aux.idEstadoPedido = Convert.ToInt32(datos.reader["IDEstadoPedido"]);
-                    aux.Factura = (string)datos.reader["Factura"];
-
-                    aux.DetPedido = new DetallePedido();
-                    aux.DetPedido.Cantidad = Convert.ToInt32(datos.reader["Cantidad"]);
-                    aux.DetPedido.Precio = Convert.ToDecimal(datos.reader["Subtotal"]);
-                    aux.DetPedido.Nombre = (string)datos.reader["Nombre"];
-
+                    //aux.Factura = (string)datos.reader["Factura"];
 
                     aux.EstadoPedido = new EstadoPedido();
-                    aux.EstadoPedido.Nombre = (string)datos.reader["Estado"];
+                    aux.EstadoPedido.Nombre = (string)datos.reader["Nombre"];
+
+                    lista.Add(aux);
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public List<DetallePedido> listarDetallePedido()
+        {
+            List<DetallePedido> lista = new List<DetallePedido>();
+            AccesoDatos datos = new AccesoDatos();
+            datos.setearQuery("Select * From DPXIDPedido");
+            try
+            {
+                datos.ejecutarReader();
+                while (datos.reader.Read())
+                {
+                    DetallePedido aux = new DetallePedido();
+                    aux.IDPedido = Convert.ToInt32(datos.reader["IDPedido"]);
+                    aux.Cantidad = Convert.ToInt32(datos.reader["Cantidad"]);
+                    aux.Precio = Convert.ToDecimal(datos.reader["Subtotal"]);
+                    aux.Nombre = (string)datos.reader["Nombre"];
 
                     lista.Add(aux);
                 }

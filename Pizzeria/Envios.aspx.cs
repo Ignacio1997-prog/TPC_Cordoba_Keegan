@@ -16,7 +16,7 @@ namespace Pizzeria
 
         public List<Pedido> listaPedido { get; set; }
         public List<Pedido> listaAdmin { get; set; }
-
+        public List<DetallePedido> listaDetallePedido { get; set; }
         public List<EstadoPedido> listaEstados{ get; set; }
 
         PedidoNegocio negocio = new PedidoNegocio();
@@ -29,6 +29,9 @@ namespace Pizzeria
                     PedidoNegocio negocio = new PedidoNegocio();
                     listaPedido = negocio.listarxIDCliente((int)Session["ID"]);
 
+                    PedidoNegocio negocioDetallePedido = new PedidoNegocio();
+                    listaDetallePedido = negocioDetallePedido.listarDetallePedido();
+                   
                 }
                 if ((bool)Session["Admin"] == true)
                 {
