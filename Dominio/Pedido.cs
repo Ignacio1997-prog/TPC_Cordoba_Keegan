@@ -71,6 +71,23 @@ namespace Dominio
 
         }
 
+        public void RestarItem(int id)
+        {
+          foreach (DetallePedido i in Items)
+          {
+              if (i.IDProducto == id)
+              {
+                 i.Cantidad--;
+                 if (i.Cantidad < 0)
+                 {
+                     i.Cantidad = 0;
+                 }
+                 return;
+              }
+          }
+
+        }
+
         public void setCantidad(int id, int cant)
         {
             if (cant == 0)

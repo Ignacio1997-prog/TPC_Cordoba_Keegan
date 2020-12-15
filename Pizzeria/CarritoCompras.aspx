@@ -20,8 +20,8 @@
                                 <tr>
                                   <td style ="vertical-align:middle;font-size: 15px";><%# Eval("Descripcion")%></td>
                                   <td style ="vertical-align:middle;font-size: 15px";><%# Eval("Precio")%></td>
-                                  <td style ="vertical-align:middle;font-size: 15px";><%# Eval("Cantidad")%>     <asp:LinkButton CssClass="btn btn-success" ID = "LinkButton1" runat="server" Text='+' OnClick ="btnAgregar_Click" CommandArgument=<%# Eval("IDProducto")%>></asp:LinkButton></td>
-                                  <td style ="vertical-align:middle;font-size: 15px";><%# Eval("PrecioTotal")%></td>
+                                  <td style ="vertical-align:middle;font-size: 15px";><%# Eval("Cantidad")%>     <asp:LinkButton CssClass="btn btn-success" ID = "LinkButton1" runat="server" Text='+' OnClick ="btnAgregar_Click" CommandArgument=<%# Eval("IDProducto")%>></asp:LinkButton> <asp:LinkButton CssClass="btn btn-danger" ID = "LinkButton4" runat="server" Text='-' OnClick ="btnRestar_Click" CommandArgument=<%# Eval("IDProducto")%>></asp:LinkButton></td>
+                                  <td style ="vertical-align:middle;font-size: 15px";><%# Eval("PrecioTotal")%> </td>
                                   <td style ="vertical-align:middle";><asp:LinkButton CssClass="btn btn-danger" ID = "LinkButton3" runat="server" Text='X' OnClick ="btnRemover_Click" CommandArgument=<%# Eval("IDProducto")%>></asp:LinkButton></td>
                                 </tr>
                             </ItemTemplate>

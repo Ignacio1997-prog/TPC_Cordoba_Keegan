@@ -25,7 +25,6 @@ namespace Pizzeria
             }
             if (!Page.IsPostBack)
             {
-                carrito = (Pedido)Session["carrito"];
                 listaLocalidades = envios.listarLocalidades();
                 foreach (Envio env in listaLocalidades)
                 {
@@ -39,11 +38,12 @@ namespace Pizzeria
         }
         public void btnAceptar_Click(object sender, EventArgs e)
         {
+            carrito = (Pedido)Session["carrito"];
             int factura = 224;
             int id = negocio.RegistrarVenta((int)Session["ID"], factura);
             foreach (DetallePedido item in carrito.Items)
             {
-                negocio.RegistrarDetalle(item);
+                negocio.RegistrarDetalle(item,id);
             }
 
             envio.IDPedido = id;

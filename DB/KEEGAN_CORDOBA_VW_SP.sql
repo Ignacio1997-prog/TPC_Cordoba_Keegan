@@ -112,8 +112,7 @@ CREATE Procedure SP_AgregarPedidos(
 AS
 Begin
 	Begin Try
-		Insert into Pedidos
-			VALUES(GETDATE(),@IDCliente,1,@IDFactura)
+		INSERT INTO Pedidos VALUES(GETDATE(),@IDCliente,1,@IDFactura)
 	End Try
 	Begin Catch
 		RAISERROR('Error al registrar el Pedido', 16,1)
@@ -329,6 +328,10 @@ End
 
 GO
 
+DELETE FROM Pedidos WHERE IDPedido = 1
+
+DBCC CHECKIDENT ('Pedidos', RESEED, 0)
+
 Select * From Pedidos
 Select * From DetallePedidos
 Select * From Facturas
@@ -349,6 +352,9 @@ Join EstadoPedidos EP ON EP.IDEstadoPedido=P.IDEstadoPedido
 Join Facturas F ON F.IDFactura=P.IDFactura
 Left Join Productos ON Productos.IDProducto=DP.IDProducto
 )
+GO
+
+USE KEEGAN_CORDOBA_DB
 GO
 
 

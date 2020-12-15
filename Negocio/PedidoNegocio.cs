@@ -41,61 +41,29 @@ namespace Negocio
         public int RegistrarVenta(int ID, int factura)
         {
             AccesoDatos datos = new AccesoDatos();
-            datos.setearSP("EXEC SP_AgregarPedidos @IDCliente,@IDFactura ");
+            int pedido;
+            datos.setearSP("INSERT INTO Pedidos VALUES(GETDATE(),@IDCliente,1,@IDFactura) SELECT CAST(scope_identity() AS int); ");
             datos.agregarParametro("@IDCliente", ID);
             datos.agregarParametro("@IDFactura", 2);
             try
             {
-                datos.ejecutarAccion();
-                datos.cerrarConexion();
+               pedido = datos.ejecutarScalar();
+               datos.cerrarConexion();
             }
             catch (Exception)
             {
                 throw;
             }
-            AccesoDatos datos2 = new AccesoDatos();
-            int idpedido = 0;
-            datos.setearQuery("SELECT TOP 1 IDPedido FROM Pedidos ORDER BY IDPedido DESC");
-            try
-            {
-                datos.ejecutarReader();
-                while (datos.reader.Read())
-                {
-                    idpedido = Convert.ToInt32(datos.reader["IDPedido"]);
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            datos.cerrarConexion();
-            return idpedido;
+            return pedido;
         }
-        public bool RegistrarDetalle(DetallePedido detalle)
+        public bool RegistrarDetalle(DetallePedido detalle,int id)
         {
-            AccesoDatos datos = new AccesoDatos();
-            int ID = 0;
-            datos.setearQuery("SELECT * FROM Get_IDPedido");
-            try
-            {
-                datos.ejecutarReader();
-                while (datos.reader.Read())
-                {
-                    ID = Convert.ToInt32(datos.reader["IDPedido"]);
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            datos.cerrarConexion();
-
             AccesoDatos datos2 = new AccesoDatos();
             datos2.setearSP("EXEC SP_AgregarDetallePedido @cantidad,@subtotal,@producto,@pedido ");
             datos2.agregarParametro("@cantidad", detalle.Cantidad);
             datos2.agregarParametro("@subtotal", detalle.PrecioTotal);
             datos2.agregarParametro("@producto", detalle.IDProducto);
-            datos2.agregarParametro("@pedido", ID);
+            datos2.agregarParametro("@pedido", id);
             try
             {
                 datos2.ejecutarAccion();

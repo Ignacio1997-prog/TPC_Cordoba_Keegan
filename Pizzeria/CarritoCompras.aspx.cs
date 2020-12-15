@@ -48,5 +48,13 @@ namespace Pizzeria
             Session.Add("carrito", carrito);
             Response.Redirect(Request.RawUrl);
         }
+
+        public void btnRestar_Click(object sender, EventArgs e)
+        {
+            var id = int.Parse((sender as LinkButton).CommandArgument);
+            carrito.RestarItem(id);
+            Session.Add("carrito", carrito);
+            Response.Redirect(Request.RawUrl);
+        }
     }
 }
